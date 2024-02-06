@@ -1,0 +1,6 @@
+﻿@RiverBooks.Api_HostAdress = http://localhost:5245
+
+GET {{RiverBooks.Api_HostAdress}}/books
+Accept: application/json
+
+###
