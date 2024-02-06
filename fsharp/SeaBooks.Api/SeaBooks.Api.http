@@ -1,0 +1,6 @@
+﻿@SeaBooks.Api_HostAdress = http://localhost:5246
+
+GET {{SeaBooks.Api_HostAdress}}/books
+Accept: application/json
+
+###

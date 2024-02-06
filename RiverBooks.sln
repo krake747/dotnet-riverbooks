@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Api", "RiverBook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverBooks.Books", "RiverBooks.Books\RiverBooks.Books.csproj", "{296CAD9F-311F-4724-BED8-DF000028E7BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsharp", "fsharp", "{02ADDE35-2189-4C53-BE1B-19DE89769569}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SeaBooks.Api", "fsharp\SeaBooks.Api\SeaBooks.Api.fsproj", "{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SeaBooks.Books", "fsharp\SeaBooks.Books\SeaBooks.Books.fsproj", "{BF470714-E487-4853-8927-4427209AF98E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{296CAD9F-311F-4724-BED8-DF000028E7BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{296CAD9F-311F-4724-BED8-DF000028E7BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{296CAD9F-311F-4724-BED8-DF000028E7BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF470714-E487-4853-8927-4427209AF98E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF470714-E487-4853-8927-4427209AF98E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF470714-E487-4853-8927-4427209AF98E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF470714-E487-4853-8927-4427209AF98E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C81FEC98-25CD-4C5C-B42F-0FD403A77CBD} = {02ADDE35-2189-4C53-BE1B-19DE89769569}
+		{BF470714-E487-4853-8927-4427209AF98E} = {02ADDE35-2189-4C53-BE1B-19DE89769569}
 	EndGlobalSection
 EndGlobal
