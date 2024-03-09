@@ -41,7 +41,7 @@ module BookEndpoints =
     [<Extension>]
     type IServiceCollectionExtensions =
         [<Extension>]
-        static member inline AddBookService(services: IServiceCollection) : IServiceCollection =
+        static member inline AddBookServices(services: IServiceCollection) : IServiceCollection =
             services.AddScoped<BookService>(fun sp -> BookService())
 
     let listBooksHandler =

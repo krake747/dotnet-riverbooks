@@ -2,7 +2,7 @@ using RiverBooks.Books;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBookService();
+builder.Services.AddBookServices();
 
 var app = builder.Build();
 

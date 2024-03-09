@@ -15,7 +15,7 @@ let configureServices (services: IServiceCollection) =
     services
         .AddRouting()
         .AddGiraffe()
-        .AddBookService()
+        .AddBookServices()
     |> ignore
 
 [<EntryPoint>]

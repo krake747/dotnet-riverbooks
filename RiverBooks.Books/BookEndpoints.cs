@@ -35,7 +35,7 @@ public static class BookEndpoints
 
 public static class BookServiceCollectionExtensions
 {
-    public static IServiceCollection AddBookService(this IServiceCollection services)
+    public static IServiceCollection AddBookServices(this IServiceCollection services)
     {
         services.AddScoped<IBookService, BookService>();
 
