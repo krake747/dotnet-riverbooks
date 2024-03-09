@@ -6,26 +6,25 @@ type BookDto = { Id: Guid; Title: string; Author: string }
 
 module BookModule =
 
-    let listBooks () : BookDto seq =
-        seq {
-            {
-                Id = Guid.NewGuid()
-                Title = "The Fellowship of the Ring"
-                Author = "J.R.R. Tolkien"
-            }
-
-            {
-                Id = Guid.NewGuid()
-                Title = "The Two Towers"
-                Author = "J.R.R. Tolkien"
-            }
-
-            {
-                Id = Guid.NewGuid()
-                Title = "The Return of the Ring"
-                Author = "J.R.R. Tolkien"
-            }
+    let private listBooks () : BookDto seq = seq {
+        {
+            Id = Guid.NewGuid()
+            Title = "The Fellowship of the Ring"
+            Author = "J.R.R. Tolkien"
         }
+
+        {
+            Id = Guid.NewGuid()
+            Title = "The Two Towers"
+            Author = "J.R.R. Tolkien"
+        }
+
+        {
+            Id = Guid.NewGuid()
+            Title = "The Return of the Ring"
+            Author = "J.R.R. Tolkien"
+        }
+    }
 
     type BookService() =
         member _.ListBooks() = listBooks ()

@@ -5,25 +5,17 @@ open Giraffe
 open Giraffe.EndpointRouting
 
 open SeaBooks.Books.BookEndpoints
-open SeaBooks.Books.BookModule
-
-let endpoints = [ GET [ route "/" (text "Hello World from Giraffe") ] ]
 
 let notFoundHandler = "Not Found" |> text |> RequestErrors.notFound
 
 let configureApp (appBuilder: IApplicationBuilder) =
-    appBuilder
-        .UseRouting()
-        // .UseGiraffe(endpoints)
-        .UseGiraffe(bookEndpoints)
-        .UseGiraffe(notFoundHandler)
+    appBuilder.UseRouting().UseGiraffe(bookEndpoints).UseGiraffe(notFoundHandler)
 
 let configureServices (services: IServiceCollection) =
     services
         .AddRouting()
-        .AddBookService()
         .AddGiraffe()
-        .AddSingleton<BookService>(BookService())
+        .AddBookService()
     |> ignore
 
 [<EntryPoint>]
