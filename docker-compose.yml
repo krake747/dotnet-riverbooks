@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  riverbooks.api:
+    image: ${DOCKER_REGISTRY-}riverbooksapi
+    container_name: RiverBooks.Api
+    build:
+      context: .
+      dockerfile: ./RiverBooks.Api/Dockerfile
+    depends_on:
+      - riverbooks.db
+  
+  riverbooks.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: RiverBooks.Database
+    environment:
+      - ACCEPT_EULA=true
+      - MSSQL_SA_PASSWORD=Admin#123
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - riverbooksdb:/var/opt/mssql
+        
+volumes: 
+  riverbooksdb:
