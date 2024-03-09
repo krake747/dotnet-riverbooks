@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FastEndpoints;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,29 @@ public static class BookEndpoints
         app.MapGet(GetAll, (IBookService bookService) => bookService.ListBooks());
 
         return app;
+    }
+}
+
+public sealed class ListBooksResponse
+{
+    public IEnumerable<BookDto> Books { get; set; }
+}
+
+internal class ListBooksEndpoint(IBookService bookService) 
+    : EndpointWithoutRequest<ListBooksResponse>
+{
+    public override void Configure()
+    {
+        Get("/api/books");
+        AllowAnonymous();
+    }
+    
+    public override async Task HandleAsync(CancellationToken token)
+    {
+        await SendAsync(new ListBooksResponse
+        {
+            Books = bookService.ListBooks()
+        }, cancellation: token);
     }
 }
 
