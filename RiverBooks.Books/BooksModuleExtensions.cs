@@ -2,12 +2,14 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RiverBooks.Books.Data;
+using Serilog;
 
 namespace RiverBooks.Books;
 
 public static class BooksModuleExtensions
 {
-    public static IServiceCollection AddBooksModule(this IServiceCollection services, ConfigurationManager config)
+    public static IServiceCollection AddBooksModule(this IServiceCollection services, ConfigurationManager config, 
+        ILogger logger)
     {
         var connectionString = config.GetConnectionString("Books");
 
@@ -16,6 +18,8 @@ public static class BooksModuleExtensions
         
         services.AddScoped<IBookService, BookService>();
 
+        logger.Information("{Module} module services registered", "Books");
+        
         return services;
     }
 }

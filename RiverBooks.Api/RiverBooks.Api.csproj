@@ -15,6 +15,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\RiverBooks.Books\RiverBooks.Books.csproj"/>
+        <ProjectReference Include="..\RiverBooks.Users\RiverBooks.Users.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +24,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     </ItemGroup>
 
 </Project>
