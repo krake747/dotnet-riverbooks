@@ -11,7 +11,7 @@ using RiverBooks.Books;
 
 namespace RiverBooks.Books.Data.Migrations
 {
-    [DbContext(typeof(BookDbContext))]
+    [DbContext(typeof(BooksDbContext))]
     [Migration("20240309183037_Initial")]
     partial class Initial
     {

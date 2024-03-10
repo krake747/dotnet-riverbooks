@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFastEndpoints();
 
-builder.Services.AddBookServices(builder.Configuration);
+builder.Services.AddBooksModule(builder.Configuration);
 
 var app = builder.Build();
 

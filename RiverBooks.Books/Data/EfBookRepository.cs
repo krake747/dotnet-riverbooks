@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books.Data;
 
-internal sealed class EfBookRepository(BookDbContext dbContext) : IBookRepository
+internal sealed class EfBookRepository(BooksDbContext dbContext) : IBookRepository
 {
     public async Task<Book?> GetByIdAsync(Guid id) => 
         await dbContext.Books.FindAsync(id);

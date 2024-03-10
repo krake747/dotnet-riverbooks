@@ -2,15 +2,15 @@
 
 namespace RiverBooks.Books.Data;
 
-internal sealed class BookDbContext(DbContextOptions<BookDbContext> options) : DbContext(options)
+internal sealed class BooksDbContext(DbContextOptions<BooksDbContext> options) : DbContext(options)
 {
-    internal DbSet<Book> Books { get; set; } = null!;
+    public DbSet<Book> Books { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Books");
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BooksDbContext).Assembly);
         
         base.OnModelCreating(modelBuilder);
     }

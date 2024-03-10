@@ -5,13 +5,13 @@ using RiverBooks.Books.Data;
 
 namespace RiverBooks.Books;
 
-public static class BookServiceCollectionExtensions
+public static class BooksModuleExtensions
 {
-    public static IServiceCollection AddBookServices(this IServiceCollection services, ConfigurationManager config)
+    public static IServiceCollection AddBooksModule(this IServiceCollection services, ConfigurationManager config)
     {
         var connectionString = config.GetConnectionString("Books");
 
-        services.AddDbContext<BookDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(connectionString));
         services.AddScoped<IBookRepository, EfBookRepository>();
         
         services.AddScoped<IBookService, BookService>();
