@@ -11,7 +11,6 @@ var app = builder.Build();
 
 app.UseFastEndpoints();
 
-app.MapGet("/", () => "Hello World!");
-app.MapBookEndpoints();
+app.MapGet("/", () => "Hello RiverBooks Api!");
 
 app.Run();

@@ -1,14 +1,14 @@
 version: "3.8"
 
 services:
-  riverbooks.api:
-    image: ${DOCKER_REGISTRY-}riverbooksapi
-    container_name: RiverBooks.Api
-    build:
-      context: .
-      dockerfile: ./RiverBooks.Api/Dockerfile
-    depends_on:
-      - riverbooks.db
+#  riverbooks.api:
+#    image: ${DOCKER_REGISTRY-}riverbooksapi
+#    container_name: RiverBooks.Api
+#    build:
+#      context: .
+#      dockerfile: ./RiverBooks.Api/Dockerfile
+#    depends_on:
+#      - riverbooks.db
   
   riverbooks.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
