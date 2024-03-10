@@ -29,7 +29,7 @@ internal sealed class UpdateBookPrice(IBookService bookService)
 
 public sealed class UpdateBookPriceRequest
 {
-    public required Guid Id { get; init; }
+    public Guid Id { get; set; }
     public required decimal NewPrice { get; init; }
 }
 

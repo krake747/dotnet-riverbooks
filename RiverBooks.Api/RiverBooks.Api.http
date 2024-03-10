@@ -36,8 +36,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "id": "988B0272-5FAE-428E-A87C-08E5B7B9BD8C",
-    "newPrice": -9.99
+    "newPrice": 9.99
 }
 
 ### Delete Book by Id
@@ -45,5 +44,14 @@ Content-Type: application/json
 DELETE {{RiverBooks.Api_HostAdress}}/books/988b0272-5fae-428e-a87c-08e5b7b9bd8c
 Accept: application/json
 
+### Update Book with invalid new price
+
+POST {{RiverBooks.Api_HostAdress}}/books/988b0272-5fae-428e-a87c-08e5b7b9bd8c/price-history
+Accept: application/json
+Content-Type: application/json
+
+{
+    "newPrice": -9.99
+}
 
 
