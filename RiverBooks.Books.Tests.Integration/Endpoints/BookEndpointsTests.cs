@@ -25,20 +25,38 @@ public sealed class BookEndpointsTests(RiverBooksApiFactory factory)
     
         
     [Fact]
-    public async Task ReturnsBooksList()
+    public async Task GetAllBooks_ShouldReturnAllBooks()
     {
         // Arrange
         var httpClient = factory.CreateClient();
         
         // Act
         var result = await httpClient.GetAsync("books");
-        var booksResponse = await result.Content.ReadFromJsonAsync<GetAllBooksResponse>();
-        var books = booksResponse!.Books.ToList();
+        var response = await result.Content.ReadFromJsonAsync<GetAllBooksResponse>();
+        var books = response!.Books.ToList();
         
         // Assert
         using var _ = new AssertionScope();
         result.StatusCode.Should().Be(HttpStatusCode.OK);
-        books.Should().NotBeEmpty()
-            .And.HaveCount(3);
+        books.Should().HaveCount(3);
+    }
+
+    [Fact]
+    public async Task GetBookById_ShouldReturnBook()
+    {
+        // Arrange
+        var httpClient = factory.CreateClient();
+        var id = Guid.Parse("A89F6CD7-4693-457B-9009-02205DBBFE45");
+        var expected = new BookDto(id, "The Fellowship of the Ring", "J.R.R. Tolkien", 10.99m);
+        var request = new GetBookByIdRequest { Id = id };
+        
+        // Act
+        var result = await httpClient.GetAsync($"books/{request.Id}");
+        var book = await result.Content.ReadFromJsonAsync<BookDto>();
+
+        // Assert
+        using var _ = new AssertionScope();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        book.Should().BeEquivalentTo(expected);
     }
 }

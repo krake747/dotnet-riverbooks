@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RiverBooks.Api;
 using RiverBooks.Books.Data;
 
-namespace RiverBooks.Books.Tests.Integration.Endpoints;
+namespace RiverBooks.Books.Tests.Integration;
 
 public sealed class RiverBooksApiFactory : WebApplicationFactory<IRiverBooksApiMarker>
 {

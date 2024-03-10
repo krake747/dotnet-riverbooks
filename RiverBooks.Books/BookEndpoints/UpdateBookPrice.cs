@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using FluentValidation;
 
 namespace RiverBooks.Books.BookEndpoints;
 
@@ -30,4 +31,19 @@ public sealed class UpdateBookPriceRequest
 {
     public required Guid Id { get; init; }
     public required decimal NewPrice { get; init; }
+}
+
+internal sealed class UpdateBookPriceRequestValidator : Validator<UpdateBookPriceRequest>
+{
+    public UpdateBookPriceRequestValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotNull()
+            .NotEqual(Guid.Empty)
+            .WithMessage("A book id is required.");
+
+        RuleFor(x => x.NewPrice)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Book prices may not be negative.");
+    }
 }

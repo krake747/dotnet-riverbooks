@@ -37,7 +37,7 @@ Content-Type: application/json
 
 {
     "id": "988B0272-5FAE-428E-A87C-08E5B7B9BD8C",
-    "newPrice": 9.99
+    "newPrice": -9.99
 }
 
 ### Delete Book by Id
