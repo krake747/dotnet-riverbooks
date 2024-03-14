@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books.BookEndpoints;
 
-internal sealed class GetBookById(IBookService bookService) 
+internal sealed class GetBookById(IBookService bookService)
     : Endpoint<GetBookByIdRequest, BookDto>
 {
     public override void Configure()
@@ -10,7 +10,7 @@ internal sealed class GetBookById(IBookService bookService)
         Get("/books/{id}");
         AllowAnonymous();
     }
-    
+
     public override async Task HandleAsync(GetBookByIdRequest request, CancellationToken token)
     {
         var book = await bookService.GetBookByIdAsync(request.Id);
@@ -19,7 +19,7 @@ internal sealed class GetBookById(IBookService bookService)
             await SendNotFoundAsync(token);
             return;
         }
-        
+
         await SendAsync(book, cancellation: token);
     }
 }

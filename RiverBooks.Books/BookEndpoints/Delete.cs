@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books.BookEndpoints;
 
-internal sealed class Delete(IBookService bookService) 
+internal sealed class Delete(IBookService bookService)
     : Endpoint<DeleteBookRequest>
 {
     public override void Configure()
@@ -10,12 +10,12 @@ internal sealed class Delete(IBookService bookService)
         Delete("/books/{id}");
         AllowAnonymous();
     }
-    
+
     public override async Task HandleAsync(DeleteBookRequest request, CancellationToken token)
     {
         // TODO: Handle not found
         await bookService.DeleteBookAsync(request.Id);
-        await SendNoContentAsync(cancellation: token);
+        await SendNoContentAsync(token);
     }
 }
 

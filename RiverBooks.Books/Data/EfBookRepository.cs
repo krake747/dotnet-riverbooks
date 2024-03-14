@@ -4,7 +4,7 @@ namespace RiverBooks.Books.Data;
 
 internal sealed class EfBookRepository(BooksDbContext dbContext) : IBookRepository
 {
-    public async Task<Book?> GetByIdAsync(Guid id) => 
+    public async Task<Book?> GetByIdAsync(Guid id) =>
         await dbContext.Books.FindAsync(id);
 
     public async Task<IEnumerable<Book>> ListAsync() =>
@@ -16,12 +16,12 @@ internal sealed class EfBookRepository(BooksDbContext dbContext) : IBookReposito
         return Task.CompletedTask;
     }
 
-    public Task DeleteAsync(Book book)     
+    public Task DeleteAsync(Book book)
     {
         _ = dbContext.Remove(book);
         return Task.CompletedTask;
     }
 
-    public async Task SaveChangesAsync() => 
+    public async Task SaveChangesAsync() =>
         await dbContext.SaveChangesAsync();
 }

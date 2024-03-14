@@ -15,16 +15,16 @@
 
     <ItemGroup>
         <ProjectReference Include="..\RiverBooks.Books\RiverBooks.Books.csproj"/>
-        <ProjectReference Include="..\RiverBooks.Users\RiverBooks.Users.csproj" />
+        <ProjectReference Include="..\RiverBooks.Users\RiverBooks.Users.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FastEndpoints" Version="5.23.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+        <PackageReference Include="FastEndpoints" Version="5.23.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1"/>
     </ItemGroup>
 
 </Project>

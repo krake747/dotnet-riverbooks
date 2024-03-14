@@ -11,7 +11,7 @@ internal sealed class BooksDbContext(DbContextOptions<BooksDbContext> options) :
         modelBuilder.HasDefaultSchema("Books");
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BooksDbContext).Assembly);
-        
+
         base.OnModelCreating(modelBuilder);
     }
 

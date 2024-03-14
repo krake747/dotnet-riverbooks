@@ -12,11 +12,7 @@ let configureApp (appBuilder: IApplicationBuilder) =
     appBuilder.UseRouting().UseGiraffe(bookEndpoints).UseGiraffe(notFoundHandler)
 
 let configureServices (services: IServiceCollection) =
-    services
-        .AddRouting()
-        .AddGiraffe()
-        .AddBookServices()
-    |> ignore
+    services.AddRouting().AddGiraffe().AddBookServices() |> ignore
 
 [<EntryPoint>]
 let main args =

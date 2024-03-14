@@ -21,7 +21,7 @@ public static class UsersModuleExtensions
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
 
         services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
-        
+
         logger.Information("{Module} module services registered", "Users");
 
         return services;

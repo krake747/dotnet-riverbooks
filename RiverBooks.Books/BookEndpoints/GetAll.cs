@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books.BookEndpoints;
 
-internal sealed class GetAll(IBookService bookService) 
+internal sealed class GetAll(IBookService bookService)
     : EndpointWithoutRequest<GetAllBooksResponse>
 {
     public override void Configure()
@@ -10,7 +10,7 @@ internal sealed class GetAll(IBookService bookService)
         Get("/books");
         AllowAnonymous();
     }
-    
+
     public override async Task HandleAsync(CancellationToken token)
     {
         await SendAsync(new GetAllBooksResponse

@@ -17,9 +17,10 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
     {
         var books = (await bookRepository.ListAsync())
             .Select(book => new BookDto(book.Id, book.Title, book.Author, book.Price));
-        
+
         return books;
     }
+
     public async Task CreateBookAsync(BookDto newBook)
     {
         var book = new Book(newBook.Id, newBook.Title, newBook.Author, newBook.Price);
@@ -31,7 +32,7 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
     public async Task<BookDto?> GetBookByIdAsync(Guid id)
     {
         var book = await bookRepository.GetByIdAsync(id);
-        
+
         // TODO: handle not found case
 
         return new BookDto(book!.Id, book.Title, book.Author, book.Price);
@@ -42,7 +43,7 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
         // validate the price
 
         var book = await bookRepository.GetByIdAsync(bookId);
-        
+
         // handle not found case
 
         book!.UpdatePrice(newPrice);
@@ -78,11 +79,6 @@ internal interface IReadOnlyBookRepository
 
 internal sealed class Book
 {
-    public Guid Id { get; private set; }
-    public string Title { get; private set; }
-    public string Author { get; private set; }
-    public decimal Price { get; private set; }
-
     internal Book(Guid id, string title, string author, decimal price)
     {
         Id = Guard.Against.Default(id);
@@ -90,6 +86,11 @@ internal sealed class Book
         Author = Guard.Against.NullOrEmpty(author);
         Price = Guard.Against.Negative(price);
     }
+
+    public Guid Id { get; }
+    public string Title { get; }
+    public string Author { get; }
+    public decimal Price { get; private set; }
 
     internal decimal UpdatePrice(decimal newPrice)
     {

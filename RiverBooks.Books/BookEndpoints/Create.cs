@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Books.BookEndpoints;
 
-internal sealed class Create(IBookService bookService) 
+internal sealed class Create(IBookService bookService)
     : Endpoint<CreateBookRequest, BookDto>
 {
     public override void Configure()
@@ -10,7 +10,7 @@ internal sealed class Create(IBookService bookService)
         Post("/books");
         AllowAnonymous();
     }
-    
+
     public override async Task HandleAsync(CreateBookRequest request, CancellationToken token)
     {
         var newBookDto = new BookDto(request.Id ?? Guid.NewGuid(), request.Title, request.Author, request.Price);

@@ -22,19 +22,19 @@ public sealed class BookEndpointsTests(RiverBooksApiFactory factory)
             await httpClient.DeleteAsync($"books/{createdId}");
         }
     }
-    
-        
+
+
     [Fact]
     public async Task GetAllBooks_ShouldReturnAllBooks()
     {
         // Arrange
         var httpClient = factory.CreateClient();
-        
+
         // Act
         var result = await httpClient.GetAsync("books");
         var response = await result.Content.ReadFromJsonAsync<GetAllBooksResponse>();
         var books = response!.Books.ToList();
-        
+
         // Assert
         using var _ = new AssertionScope();
         result.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -49,7 +49,7 @@ public sealed class BookEndpointsTests(RiverBooksApiFactory factory)
         var id = Guid.Parse("A89F6CD7-4693-457B-9009-02205DBBFE45");
         var expected = new BookDto(id, "The Fellowship of the Ring", "J.R.R. Tolkien", 10.99m);
         var request = new GetBookByIdRequest { Id = id };
-        
+
         // Act
         var result = await httpClient.GetAsync($"books/{request.Id}");
         var book = await result.Content.ReadFromJsonAsync<BookDto>();

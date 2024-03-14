@@ -36,11 +36,10 @@ public sealed record AddCartItemRequest(Guid BookId, int Quantity);
 
 public sealed record AddItemToCartCommand(Guid BookId, int Quantity, string EmailAddress)
     : IRequest<Result>;
-    
+
 internal sealed class AddItemToCartHandler(IApplicationUserRepository userRepository, ISender mediator)
     : IRequestHandler<AddItemToCartCommand, Result>
 {
-
     public async Task<Result> Handle(AddItemToCartCommand request, CancellationToken token = default)
     {
         var user = await userRepository.GetUserWithCartByEmailAsync(request.EmailAddress, token);
@@ -51,9 +50,9 @@ internal sealed class AddItemToCartHandler(IApplicationUserRepository userReposi
 
         // TODO: get description and price from Books Module
         var newCartItem = new CartItem(request.BookId, "description", request.Quantity, 1.0m);
-        
+
         user.AddItemToCart(newCartItem);
-        
+
         await userRepository.SaveChangesAsync(token);
         return Result.Success();
     }

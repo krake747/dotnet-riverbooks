@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace RiverBooks.Books.BookEndpoints;
 
-internal sealed class UpdateBookPrice(IBookService bookService) 
+internal sealed class UpdateBookPrice(IBookService bookService)
     : Endpoint<UpdateBookPriceRequest, BookDto?>
 {
     public override void Configure()
@@ -11,7 +11,7 @@ internal sealed class UpdateBookPrice(IBookService bookService)
         Post("/books/{id}/price-history");
         AllowAnonymous();
     }
-    
+
     public override async Task HandleAsync(UpdateBookPriceRequest request, CancellationToken token)
     {
         // TODO: Handle not found
@@ -22,7 +22,7 @@ internal sealed class UpdateBookPrice(IBookService bookService)
         {
             await SendNotFoundAsync(token);
         }
-        
+
         await SendAsync(updatedBook, cancellation: token);
     }
 }

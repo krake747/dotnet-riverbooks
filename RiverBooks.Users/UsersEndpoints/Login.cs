@@ -36,7 +36,7 @@ internal sealed class Login(UserManager<ApplicationUser> userManager) : Endpoint
         });
 
         await SendOkAsync(jwtToken, token);
-    } 
+    }
 }
 
 public sealed class UserLoginRequest

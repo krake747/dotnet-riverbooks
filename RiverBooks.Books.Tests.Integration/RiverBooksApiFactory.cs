@@ -19,7 +19,8 @@ public sealed class RiverBooksApiFactory : WebApplicationFactory<IRiverBooksApiM
         builder.UseConfiguration(_config);
         builder.ConfigureServices(services =>
         {
-            services.AddDbContext<BooksDbContext>(options => options.UseSqlServer(_config.GetConnectionString("Books")));
+            services.AddDbContext<BooksDbContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("Books")));
         });
     }
 }
