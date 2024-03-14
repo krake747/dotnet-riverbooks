@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RiverBooks.Users.CartEndpoints;
+using RiverBooks.Users.Data;
 using Serilog;
 
 namespace RiverBooks.Users;
@@ -16,6 +18,10 @@ public static class UsersModuleExtensions
         services.AddIdentityCore<ApplicationUser>()
             .AddEntityFrameworkStores<UsersDbContext>();
 
+        services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
+
+        services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+        
         logger.Information("{Module} module services registered", "Users");
 
         return services;

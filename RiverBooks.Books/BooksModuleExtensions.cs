@@ -17,7 +17,9 @@ public static class BooksModuleExtensions
         services.AddScoped<IBookRepository, EfBookRepository>();
         
         services.AddScoped<IBookService, BookService>();
-
+        
+        services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IBooksModuleMarker)));
+        
         logger.Information("{Module} module services registered", "Books");
         
         return services;

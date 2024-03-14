@@ -1,30 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.GuardClauses;
+using Microsoft.AspNetCore.Identity;
 
 namespace RiverBooks.Users;
 
-public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options)
-    : IdentityDbContext(options)
+public sealed class ApplicationUser : IdentityUser
 {
-    public DbSet<ApplicationUser> ApplicationUsers { get; init; } = null!;
+    private readonly List<CartItem> _cartItems = [];
+    
+    public string FullName { get; set; } = string.Empty;
+    public IReadOnlyCollection<CartItem> CartItems => _cartItems.AsReadOnly();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public void AddItemToCart(CartItem item)
     {
-        modelBuilder.HasDefaultSchema("Users");
+        Guard.Against.Null(item);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsersDbContext).Assembly);
-
-        base.OnModelCreating(modelBuilder);
-    }
-
-    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-    {
-        configurationBuilder.Properties<decimal>()
-            .HavePrecision(18, 6);
+        var existingBook = _cartItems.Find(c => c.BookId == item.BookId);
+        if (existingBook is not null)
+        {
+            existingBook.UpdateQuantity(existingBook.Quantity + item.Quantity);
+            // TODO: What to do if other details of the item have been updated?
+            return;
+        }
+        
+        _cartItems.Add(item);
     }
 }
 
-public sealed class ApplicationUser : IdentityUser
+public sealed class CartItem(Guid bookId, string description, int quantity, decimal unitPrice)
 {
+    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid BookId { get; private set; } = Guard.Against.Default(bookId);
+    public string Description { get; private set; } = Guard.Against.NullOrEmpty(description);
+    public int Quantity { get; private set; } = Guard.Against.Negative(quantity);
+    public decimal UnitPrice { get; private set; } = Guard.Against.Negative(unitPrice);
+
+    internal void UpdateQuantity(int quantity)
+    {
+        Quantity = Guard.Against.Negative(quantity);
+    }
 }
