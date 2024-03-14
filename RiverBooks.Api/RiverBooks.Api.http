@@ -1,4 +1,4 @@
-﻿@RiverBooks.Api_HostAdress = http://localhost:5245
+﻿@RiverBooks.Api_HostAdress = https://localhost:7290
 
 ### Get All Books
 
@@ -54,4 +54,30 @@ Content-Type: application/json
     "newPrice": -9.99
 }
 
+### Create new user
 
+POST {{RiverBooks.Api_HostAdress}}/users
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "kk@test.com",
+    "password": "Pass@word1"
+}
+
+### Login new user
+
+POST {{RiverBooks.Api_HostAdress}}/users/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "kk@test.com",
+    "password": "Pass@word1"
+}
+
+###
+
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDQ0NTg1OCwiZXhwIjoxNzEwNDQ5NDU4LCJuYmYiOjE3MTA0NDU4NTh9.fPXb7Q-io-vVoXG_3lfMd2vZH0jbHaBieEO8bx7pEl8
+
+###
