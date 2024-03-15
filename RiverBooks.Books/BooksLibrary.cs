@@ -5,7 +5,7 @@ namespace RiverBooks.Books;
 internal interface IBookService
 {
     Task<IEnumerable<BookDto>> ListBooksAsync();
-    Task<BookDto?> GetBookByIdAsync(Guid id);
+    Task<BookDto?> GetBookByIdAsync(Guid id, CancellationToken token = default);
     Task CreateBookAsync(BookDto newBook);
     Task DeleteBookAsync(Guid id);
     Task UpdateBookPriceAsync(Guid bookId, decimal newPrice);
@@ -29,9 +29,9 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
         await bookRepository.SaveChangesAsync();
     }
 
-    public async Task<BookDto?> GetBookByIdAsync(Guid id)
+    public async Task<BookDto?> GetBookByIdAsync(Guid id, CancellationToken token = default)
     {
-        var book = await bookRepository.GetByIdAsync(id);
+        var book = await bookRepository.GetByIdAsync(id, token);
 
         // TODO: handle not found case
 
@@ -73,24 +73,16 @@ internal interface IBookRepository : IReadOnlyBookRepository
 
 internal interface IReadOnlyBookRepository
 {
-    Task<Book?> GetByIdAsync(Guid id);
+    Task<Book?> GetByIdAsync(Guid id, CancellationToken token = default);
     Task<IEnumerable<Book>> ListAsync();
 }
 
-internal sealed class Book
+internal sealed class Book(Guid id, string title, string author, decimal price)
 {
-    internal Book(Guid id, string title, string author, decimal price)
-    {
-        Id = Guard.Against.Default(id);
-        Title = Guard.Against.NullOrEmpty(title);
-        Author = Guard.Against.NullOrEmpty(author);
-        Price = Guard.Against.Negative(price);
-    }
-
-    public Guid Id { get; }
-    public string Title { get; }
-    public string Author { get; }
-    public decimal Price { get; private set; }
+    public Guid Id { get; private set; } = Guard.Against.Default(id);
+    public string Title { get; private set;} = Guard.Against.NullOrEmpty(title);
+    public string Author { get; private set; } = Guard.Against.NullOrEmpty(author);
+    public decimal Price { get; private set; } = Guard.Against.Negative(price);
 
     internal decimal UpdatePrice(decimal newPrice)
     {

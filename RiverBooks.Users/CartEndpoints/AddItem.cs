@@ -2,6 +2,7 @@
 using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
+using RiverBooks.Books.Contracts;
 
 namespace RiverBooks.Users.CartEndpoints;
 
@@ -48,8 +49,18 @@ internal sealed class AddItemToCartHandler(IApplicationUserRepository userReposi
             return Result.Unauthorized();
         }
 
-        // TODO: get description and price from Books Module
-        var newCartItem = new CartItem(request.BookId, "description", request.Quantity, 1.0m);
+        var query = new BookDetailsQuery(request.BookId);
+
+        var result = await mediator.Send(query, token);
+        if (result.IsSuccess is false)
+        {
+            return Result.NotFound();
+        }
+
+        var bookDetails = result.Value;
+        var description = $"{bookDetails.Title} by {bookDetails.Author}";
+
+        var newCartItem = new CartItem(request.BookId, description, request.Quantity, bookDetails.Price);
 
         user.AddItemToCart(newCartItem);
 
