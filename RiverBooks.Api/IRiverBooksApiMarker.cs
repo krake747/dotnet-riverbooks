@@ -1,5 +1,3 @@
 ﻿namespace RiverBooks.Api;
 
-public interface IRiverBooksApiMarker
-{
-}
+public interface IRiverBooksApiMarker;

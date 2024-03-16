@@ -1,6 +1,3 @@
 ﻿namespace RiverBooks.OrderProcessing;
 
-public interface IOrderProcessingModuleMarker
-{
-    
-}
+public interface IOrderProcessingModuleMarker;

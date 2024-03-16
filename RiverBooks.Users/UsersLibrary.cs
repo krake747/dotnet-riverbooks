@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Identity;
-using RiverBooks.Users.Data.Migrations;
 
 namespace RiverBooks.Users;
 
@@ -44,19 +43,19 @@ public sealed class CartItem
     {
         // EF
     }
-    
+
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public Guid BookId { get; private set; }
+    public Guid BookId { get; }
     public string Description { get; private set; } = string.Empty;
     public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; }
 
-    internal void UpdateQuantity(int quantity) => 
+    internal void UpdateQuantity(int quantity) =>
         Quantity = Guard.Against.Negative(quantity);
-    
-    internal void UpdateDescription(string description) => 
+
+    internal void UpdateDescription(string description) =>
         Description = Guard.Against.NullOrEmpty(description);
 
-    internal void UpdateUnitPrice(decimal unitPrice) => 
+    internal void UpdateUnitPrice(decimal unitPrice) =>
         UnitPrice = Guard.Against.Negative(unitPrice);
 }

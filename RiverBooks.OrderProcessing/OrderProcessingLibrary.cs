@@ -4,14 +4,14 @@ namespace RiverBooks.OrderProcessing;
 
 public sealed class Order
 {
-    private readonly List<OrderItem> _orderItems = []; 
-    
+    private readonly List<OrderItem> _orderItems = [];
+
     public Guid Id { get; private set; } = Guid.NewGuid();
     public Guid UserId { get; private set; }
     public Address ShippingAddress { get; private set; } = default!;
     public Address BillingAddress { get; private set; } = default!;
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
-    
+
     public DateTimeOffset DateCreated { get; private set; } = DateTimeOffset.Now;
 
     private void AddOrderItem(OrderItem item) => _orderItems.Add(item);
@@ -28,7 +28,7 @@ public sealed class Order
                 ShippingAddress = shippingAddress,
                 BillingAddress = billingAddress
             };
-            
+
             order.AddOrderItems(orderItems);
             return order;
         }
@@ -49,7 +49,7 @@ public sealed class OrderItem
     {
         // EF
     }
-    
+
     public Guid Id { get; private set; } = Guid.NewGuid();
     public Guid BookId { get; private set; }
     public string Description { get; private set; } = string.Empty;

@@ -1,5 +1,3 @@
 ﻿namespace RiverBooks.Books;
 
-public interface IBooksModuleMarker
-{
-}
+public interface IBooksModuleMarker;

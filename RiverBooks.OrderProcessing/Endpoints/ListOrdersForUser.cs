@@ -21,7 +21,7 @@ public sealed class OrderSummary
 
 internal sealed record ListOrdersForUserQuery(string EmailAddress) : IRequest<Result<IEnumerable<OrderSummary>>>;
 
-internal sealed class ListOrdersForUserHandler(IOrderRepository orderRepository) 
+internal sealed class ListOrdersForUserHandler(IOrderRepository orderRepository)
     : IRequestHandler<ListOrdersForUserQuery, Result<IEnumerable<OrderSummary>>>
 {
     public async Task<Result<IEnumerable<OrderSummary>>> Handle(ListOrdersForUserQuery request,
@@ -30,7 +30,7 @@ internal sealed class ListOrdersForUserHandler(IOrderRepository orderRepository)
     {
         // TODO: Lookup UserId for EmailAddress, Filter by User
         var orders = await orderRepository.ListAsync(token);
-        
+
         var summaries = orders.Select(o => new OrderSummary
         {
             OrderId = o.Id,
@@ -76,9 +76,8 @@ internal sealed class ListOrdersForUser(ISender mediator) : EndpointWithoutReque
                     DateShipped = o.DateShipped
                 })
             };
-            
+
             await SendOkAsync(response, token);
         }
-
     }
 }

@@ -4,7 +4,7 @@ using RiverBooks.Books.Contracts;
 
 namespace RiverBooks.Books.Integrations;
 
-internal sealed class BookDetailsQueryHandler(IBookService bookService) 
+internal sealed class BookDetailsQueryHandler(IBookService bookService)
     : IRequestHandler<BookDetailsQuery, Result<BookDetailsResponse>>
 {
     public async Task<Result<BookDetailsResponse>> Handle(BookDetailsQuery request, CancellationToken token = default)

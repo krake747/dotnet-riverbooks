@@ -79,9 +79,9 @@ internal interface IReadOnlyBookRepository
 
 internal sealed class Book(Guid id, string title, string author, decimal price)
 {
-    public Guid Id { get; private set; } = Guard.Against.Default(id);
-    public string Title { get; private set;} = Guard.Against.NullOrEmpty(title);
-    public string Author { get; private set; } = Guard.Against.NullOrEmpty(author);
+    public Guid Id { get; } = Guard.Against.Default(id);
+    public string Title { get; } = Guard.Against.NullOrEmpty(title);
+    public string Author { get; } = Guard.Against.NullOrEmpty(author);
     public decimal Price { get; private set; } = Guard.Against.Negative(price);
 
     internal decimal UpdatePrice(decimal newPrice)

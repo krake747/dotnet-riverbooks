@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RiverBooks.Users.CartEndpoints;
 
 namespace RiverBooks.Users.Data;
 

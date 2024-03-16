@@ -8,7 +8,8 @@ namespace RiverBooks.OrderProcessing;
 
 public static class OrderProcessingModuleExtensions
 {
-    public static IServiceCollection AddOrderProcessingModule(this IServiceCollection services, ConfigurationManager config,
+    public static IServiceCollection AddOrderProcessingModule(this IServiceCollection services,
+        ConfigurationManager config,
         ILogger logger)
     {
         var connectionString = config.GetConnectionString("OrderProcessing");

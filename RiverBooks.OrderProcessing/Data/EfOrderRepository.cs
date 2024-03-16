@@ -9,10 +9,9 @@ internal sealed class EfOrderRepository(OrderProcessingDbContext dbContext) : IO
             .Include(o => o.OrderItems)
             .ToListAsync(token);
 
-    public async Task AddAsync(Order order, CancellationToken token = default) => 
+    public async Task AddAsync(Order order, CancellationToken token = default) =>
         await dbContext.AddAsync(order, token);
 
-    public async Task SaveChangesAsync(CancellationToken token = default) => 
+    public async Task SaveChangesAsync(CancellationToken token = default) =>
         await dbContext.SaveChangesAsync(token);
-    
 }

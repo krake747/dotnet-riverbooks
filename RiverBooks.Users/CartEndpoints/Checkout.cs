@@ -7,6 +7,7 @@ using RiverBooks.Users.UseCases.Cart.Checkout;
 namespace RiverBooks.Users.CartEndpoints;
 
 public sealed record CheckoutRequest(Guid ShippingAddressId, Guid BillingAddressId);
+
 public sealed record CheckoutResponse(Guid NewOrderId);
 
 internal sealed class Checkout(ISender mediator) : Endpoint<CheckoutRequest, CheckoutResponse>
@@ -35,5 +36,4 @@ internal sealed class Checkout(ISender mediator) : Endpoint<CheckoutRequest, Che
             await SendOkAsync(new CheckoutResponse(result.Value), token);
         }
     }
-
 }

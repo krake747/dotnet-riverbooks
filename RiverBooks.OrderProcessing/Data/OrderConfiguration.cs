@@ -13,31 +13,31 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.ComplexProperty(o => o.ShippingAddress, address =>
         {
             address.Property(a => a.Street1)
-                .HasMaxLength(DataSchemaConstants.StreetMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StreetMaxLength);
             address.Property(a => a.Street2)
-                .HasMaxLength(DataSchemaConstants.StreetMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StreetMaxLength);
             address.Property(a => a.City)
-                .HasMaxLength(DataSchemaConstants.CityMaxLength);            
+                .HasMaxLength(DataSchemaConstants.CityMaxLength);
             address.Property(a => a.State)
-                .HasMaxLength(DataSchemaConstants.StateMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StateMaxLength);
             address.Property(a => a.PostalCode)
-                .HasMaxLength(DataSchemaConstants.PostalCodeMaxLength);            
+                .HasMaxLength(DataSchemaConstants.PostalCodeMaxLength);
             address.Property(a => a.Country)
                 .HasMaxLength(DataSchemaConstants.CountryMaxLength);
         });
-        
+
         builder.ComplexProperty(o => o.BillingAddress, address =>
         {
             address.Property(a => a.Street1)
-                .HasMaxLength(DataSchemaConstants.StreetMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StreetMaxLength);
             address.Property(a => a.Street2)
-                .HasMaxLength(DataSchemaConstants.StreetMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StreetMaxLength);
             address.Property(a => a.City)
-                .HasMaxLength(DataSchemaConstants.CityMaxLength);            
+                .HasMaxLength(DataSchemaConstants.CityMaxLength);
             address.Property(a => a.State)
-                .HasMaxLength(DataSchemaConstants.StateMaxLength);            
+                .HasMaxLength(DataSchemaConstants.StateMaxLength);
             address.Property(a => a.PostalCode)
-                .HasMaxLength(DataSchemaConstants.PostalCodeMaxLength);            
+                .HasMaxLength(DataSchemaConstants.PostalCodeMaxLength);
             address.Property(a => a.Country)
                 .HasMaxLength(DataSchemaConstants.CountryMaxLength);
         });

@@ -9,9 +9,9 @@ public sealed class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     {
         builder.Property(item => item.Id)
             .ValueGeneratedNever();
-        
+
         builder.Property(item => item.Description)
             .HasMaxLength(DataSchemaConstants.DefaultDescriptionLength)
-            .IsRequired();            
+            .IsRequired();
     }
 }
