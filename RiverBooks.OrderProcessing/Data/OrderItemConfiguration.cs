@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RiverBooks.OrderProcessing.Data;
 
-public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+public sealed class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 {
     public void Configure(EntityTypeBuilder<OrderItem> builder)
     {

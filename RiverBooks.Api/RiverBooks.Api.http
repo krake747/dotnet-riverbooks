@@ -78,7 +78,7 @@ Content-Type: application/json
 
 ### Add Item to cart
 
-@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDUyMjE3OSwiZXhwIjoxNzEwNTI1Nzc5LCJuYmYiOjE3MTA1MjIxNzl9.xCQ3dE_WSuyPQjWnW-LjelflyLHuJh4eW6t4AKBSS2Y
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDYxMTA5OSwiZXhwIjoxNzEwNjE0Njk5LCJuYmYiOjE3MTA2MTEwOTl9.u5HycNPED8UZetcv_XdnB5g2yMUWCDfX7b7f3y8R_R0
 
 POST {{RiverBooks.Api_HostAdress}}/cart
 Accept: text/plain
@@ -95,3 +95,23 @@ Content-Type: application/json
 GET {{RiverBooks.Api_HostAdress}}/cart
 Accept: application/json
 Authorization: Bearer {{token}}
+
+### List all orders
+
+GET {{RiverBooks.Api_HostAdress}}/orders
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Checkout Cart
+
+POST {{RiverBooks.Api_HostAdress}}/cart/checkout
+Accept: application/json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "shippingAddressId": "A89F6CD7-4693-457B-9009-02205DBBFE45",
+    "billingAddressId": "A89F6CD7-4693-457B-9009-02205DBBFE45"
+}
+
+###

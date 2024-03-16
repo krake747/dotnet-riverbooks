@@ -24,6 +24,13 @@ dotnet ef migrations add InitialUsers -c UsersDbContext -p ..\RiverBooks.Users\R
 dotnet ef database update -c UsersDbContext
 ```
 
+### OrderProcessing Module
+
+```bash
+dotnet ef migrations add InitialOrderProcessing -c OrderProcessingDbContext -p ../RiverBooks.OrderProcessing/RiverBooks.OrderProcessing.csproj -s .\RiverBooks.Api.csproj -o Data/Migrations 
+dotnet ef database update -c OrderProcessingDbContext
+```
+
 ## Testing Database
 
 Create a new copy `appsettings.Testing.json` from the `appsettings.Development.json` and name the test database

@@ -18,7 +18,7 @@ public static class OrderProcessingModuleExtensions
 
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IOrderProcessingModuleMarker)));
 
-        logger.Information("{Module} module services registered", "Users");
+        logger.Information("{Module} module services registered", "OrderProcessing");
 
         return services;
     }

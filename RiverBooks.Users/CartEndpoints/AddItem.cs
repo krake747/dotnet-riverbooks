@@ -2,9 +2,10 @@
 using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using RiverBooks.Books.Contracts;
 
 namespace RiverBooks.Users.CartEndpoints;
+
+public sealed record AddCartItemRequest(Guid BookId, int Quantity);
 
 internal class AddItem(ISender mediator) : Endpoint<AddCartItemRequest>
 {
@@ -31,46 +32,4 @@ internal class AddItem(ISender mediator) : Endpoint<AddCartItemRequest>
             await SendOkAsync(token);
         }
     }
-}
-
-public sealed record AddCartItemRequest(Guid BookId, int Quantity);
-
-public sealed record AddItemToCartCommand(Guid BookId, int Quantity, string EmailAddress)
-    : IRequest<Result>;
-
-internal sealed class AddItemToCartHandler(IApplicationUserRepository userRepository, ISender mediator)
-    : IRequestHandler<AddItemToCartCommand, Result>
-{
-    public async Task<Result> Handle(AddItemToCartCommand request, CancellationToken token = default)
-    {
-        var user = await userRepository.GetUserWithCartByEmailAsync(request.EmailAddress, token);
-        if (user is null)
-        {
-            return Result.Unauthorized();
-        }
-
-        var query = new BookDetailsQuery(request.BookId);
-
-        var result = await mediator.Send(query, token);
-        if (result.IsSuccess is false)
-        {
-            return Result.NotFound();
-        }
-
-        var bookDetails = result.Value;
-        var description = $"{bookDetails.Title} by {bookDetails.Author}";
-
-        var newCartItem = new CartItem(request.BookId, description, request.Quantity, bookDetails.Price);
-
-        user.AddItemToCart(newCartItem);
-
-        await userRepository.SaveChangesAsync(token);
-        return Result.Success();
-    }
-}
-
-public interface IApplicationUserRepository
-{
-    Task<ApplicationUser?> GetUserWithCartByEmailAsync(string email, CancellationToken token = default);
-    Task SaveChangesAsync(CancellationToken token = default);
 }

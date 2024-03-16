@@ -15,6 +15,24 @@ public sealed class Order
     public DateTimeOffset DateCreated { get; private set; } = DateTimeOffset.Now;
 
     private void AddOrderItem(OrderItem item) => _orderItems.Add(item);
+    private void AddOrderItems(IEnumerable<OrderItem> items) => _orderItems.AddRange(items);
+
+    internal static class Factory
+    {
+        public static Order Create(Guid userId, Address shippingAddress, Address billingAddress,
+            IEnumerable<OrderItem> orderItems)
+        {
+            var order = new Order
+            {
+                UserId = userId,
+                ShippingAddress = shippingAddress,
+                BillingAddress = billingAddress
+            };
+            
+            order.AddOrderItems(orderItems);
+            return order;
+        }
+    }
 }
 
 public sealed class OrderItem

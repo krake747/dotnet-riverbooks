@@ -2,8 +2,14 @@
 using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
+using RiverBooks.Users.UseCases.Cart.ListItems;
 
 namespace RiverBooks.Users.CartEndpoints;
+
+public sealed class CartResponse
+{
+    public IEnumerable<CartItemDto> CartItems { get; set; } = [];
+}
 
 internal sealed class ListCartItems(ISender mediator) : EndpointWithoutRequest<CartResponse>
 {
@@ -32,32 +38,5 @@ internal sealed class ListCartItems(ISender mediator) : EndpointWithoutRequest<C
                 CartItems = result.Value
             }, token);
         }
-    }
-}
-
-public sealed class CartResponse
-{
-    public IEnumerable<CartItemDto> CartItems { get; set; } = [];
-}
-
-public sealed record CartItemDto(Guid Id, Guid BookId, string Description, int Quantity, decimal UnitPrice);
-
-public sealed record ListCartItemsQuery(string EmailAddress) : IRequest<Result<IEnumerable<CartItemDto>>>;
-
-internal sealed class ListCartItemsQueryHandler(IApplicationUserRepository userRepository)
-    : IRequestHandler<ListCartItemsQuery, Result<IEnumerable<CartItemDto>>>
-{
-    public async Task<Result<IEnumerable<CartItemDto>>> Handle(ListCartItemsQuery request,
-        CancellationToken token = default)
-    {
-        var user = await userRepository.GetUserWithCartByEmailAsync(request.EmailAddress, token);
-        if (user is null)
-        {
-            return Result.Unauthorized();
-        }
-
-        return user.CartItems.Select(item =>
-                new CartItemDto(item.Id, item.BookId, item.Description, item.Quantity, item.UnitPrice))
-            .ToList();
     }
 }

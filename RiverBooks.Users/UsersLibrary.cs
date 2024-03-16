@@ -26,6 +26,8 @@ public sealed class ApplicationUser : IdentityUser
 
         _cartItems.Add(item);
     }
+
+    internal void ClearCart() => _cartItems.Clear();
 }
 
 public sealed class CartItem
