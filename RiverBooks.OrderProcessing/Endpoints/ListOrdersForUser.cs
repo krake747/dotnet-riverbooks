@@ -16,7 +16,7 @@ public sealed class OrderSummary
     public Guid UserId { get; set; }
     public decimal Total { get; set; }
     public DateTimeOffset DateCreated { get; set; }
-    public DateTimeOffset DateShipped { get; set; }
+    public DateTimeOffset? DateShipped { get; set; }
 }
 
 internal sealed record ListOrdersForUserQuery(string EmailAddress) : IRequest<Result<IEnumerable<OrderSummary>>>;

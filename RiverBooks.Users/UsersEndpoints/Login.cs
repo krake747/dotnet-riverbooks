@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RiverBooks.Users.UsersEndpoints;
 
+public sealed class UserLoginRequest
+{
+    public required string Email { get; init; }
+    public required string Password { get; init; }
+}
+
 internal sealed class Login(UserManager<ApplicationUser> userManager) : Endpoint<UserLoginRequest>
 {
     public override void Configure()
@@ -37,10 +43,4 @@ internal sealed class Login(UserManager<ApplicationUser> userManager) : Endpoint
 
         await SendOkAsync(jwtToken, token);
     }
-}
-
-public sealed class UserLoginRequest
-{
-    public required string Email { get; init; }
-    public required string Password { get; init; }
 }

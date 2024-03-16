@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RiverBooks.Users.UsersEndpoints;
 
+public sealed record CreateUserRequest
+{
+    public required string Email { get; init; }
+    public required string Password { get; init; }
+}
+
 internal sealed class Create(UserManager<ApplicationUser> userManager) : Endpoint<CreateUserRequest>
 {
     public override void Configure()
@@ -23,10 +29,4 @@ internal sealed class Create(UserManager<ApplicationUser> userManager) : Endpoin
 
         await SendOkAsync(token);
     }
-}
-
-public sealed record CreateUserRequest
-{
-    public required string Email { get; init; }
-    public required string Password { get; init; }
 }
