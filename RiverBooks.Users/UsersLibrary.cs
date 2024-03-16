@@ -3,12 +3,56 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RiverBooks.Users;
 
+public sealed record Address(
+    string Street1,
+    string Street2,
+    string City,
+    string State,
+    string PostalCode,
+    string Country);
+
+public sealed class UserStreetAddress
+{
+    private UserStreetAddress()
+    {
+        // EF
+    }
+
+    public UserStreetAddress(string userId, Address streetAddress)
+    {
+        UserId = Guard.Against.NullOrEmpty(userId);
+        StreetAddress = Guard.Against.Null(streetAddress);
+    }
+
+    public Guid Id { get; private set; } = Guid.NewGuid();
+    public string UserId { get; private set; } = string.Empty;
+    public Address StreetAddress { get; } = default!;
+}
+
 public sealed class ApplicationUser : IdentityUser
 {
+    private readonly List<UserStreetAddress> _addresses = [];
     private readonly List<CartItem> _cartItems = [];
 
     public string FullName { get; set; } = string.Empty;
     public IReadOnlyCollection<CartItem> CartItems => _cartItems.AsReadOnly();
+    public IReadOnlyCollection<UserStreetAddress> Addresses => _addresses.AsReadOnly();
+
+    internal UserStreetAddress AddAddress(Address address)
+    {
+        Guard.Against.Null(address);
+
+        var existingAddress = _addresses.SingleOrDefault(a => a.StreetAddress == address);
+        if (existingAddress is not null)
+        {
+            return existingAddress;
+        }
+
+        var newAddress = new UserStreetAddress(Id, address);
+        _addresses.Add(newAddress);
+
+        return newAddress;
+    }
 
     public void AddItemToCart(CartItem item)
     {
@@ -45,7 +89,7 @@ public sealed class CartItem
     }
 
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public Guid BookId { get; }
+    public Guid BookId { get; private set; }
     public string Description { get; private set; } = string.Empty;
     public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; }

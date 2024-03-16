@@ -78,7 +78,7 @@ Content-Type: application/json
 
 ### Add Item to cart
 
-@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDYxMzgwNywiZXhwIjoxNzEwNjE3NDA3LCJuYmYiOjE3MTA2MTM4MDd9.dX14vkAflPnsKVDLtT5OGckAA_sxa177HgKxXtj8A5k
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDYxNzcwMCwiZXhwIjoxNzEwNjIxMzAwLCJuYmYiOjE3MTA2MTc3MDB9.DOZSpHHr9jrARqX1QR6lEuH96ud26Pq4xX0wVBmva_A
 
 POST {{RiverBooks.Api_HostAdress}}/cart
 Accept: text/plain
@@ -110,8 +110,30 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "shippingAddressId": "A89F6CD7-4693-457B-9009-02205DBBFE45",
-    "billingAddressId": "A89F6CD7-4693-457B-9009-02205DBBFE45"
+    "shippingAddressId": "6ccdff04-0e39-4b17-9b75-23756f311805",
+    "billingAddressId": "6ccdff04-0e39-4b17-9b75-23756f311805"
 }
+
+### Add Address to User
+
+POST {{RiverBooks.Api_HostAdress}}/users/addresses
+Accept: application/json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "street1": "1234678 Main St.",
+    "street2": "Number 722",
+    "city": "Anytown",
+    "state": "OH",
+    "postalCode": "12345-6789",
+    "country": "USA"
+}
+
+### List Addresses
+
+GET {{RiverBooks.Api_HostAdress}}/users/addresses
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ###

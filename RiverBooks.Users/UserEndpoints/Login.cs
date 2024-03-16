@@ -2,7 +2,7 @@
 using FastEndpoints.Security;
 using Microsoft.AspNetCore.Identity;
 
-namespace RiverBooks.Users.UsersEndpoints;
+namespace RiverBooks.Users.UserEndpoints;
 
 public sealed class UserLoginRequest
 {

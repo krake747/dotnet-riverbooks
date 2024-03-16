@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 
-namespace RiverBooks.Users.UsersEndpoints;
+namespace RiverBooks.Users.UserEndpoints;
 
 public sealed record CreateUserRequest
 {
