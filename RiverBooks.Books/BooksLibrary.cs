@@ -2,6 +2,35 @@
 
 namespace RiverBooks.Books;
 
+internal sealed class Book(Guid id, string title, string author, decimal price)
+{
+    public Guid Id { get; } = Guard.Against.Default(id);
+    public string Title { get; } = Guard.Against.NullOrEmpty(title);
+    public string Author { get; } = Guard.Against.NullOrEmpty(author);
+    public decimal Price { get; private set; } = Guard.Against.Negative(price);
+
+    internal decimal UpdatePrice(decimal newPrice)
+    {
+        Price = Guard.Against.Negative(newPrice);
+        return newPrice;
+    }
+}
+
+public sealed record BookDto(Guid Id, string Title, string Author, decimal Price);
+
+internal interface IBookRepository : IReadOnlyBookRepository
+{
+    Task AddAsync(Book book);
+    Task DeleteAsync(Book book);
+    Task SaveChangesAsync();
+}
+
+internal interface IReadOnlyBookRepository
+{
+    Task<Book?> GetByIdAsync(Guid id, CancellationToken token = default);
+    Task<IEnumerable<Book>> ListAsync();
+}
+
 internal interface IBookService
 {
     Task<IEnumerable<BookDto>> ListBooksAsync();
@@ -62,31 +91,3 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
     }
 }
 
-public sealed record BookDto(Guid Id, string Title, string Author, decimal Price);
-
-internal interface IBookRepository : IReadOnlyBookRepository
-{
-    Task AddAsync(Book book);
-    Task DeleteAsync(Book book);
-    Task SaveChangesAsync();
-}
-
-internal interface IReadOnlyBookRepository
-{
-    Task<Book?> GetByIdAsync(Guid id, CancellationToken token = default);
-    Task<IEnumerable<Book>> ListAsync();
-}
-
-internal sealed class Book(Guid id, string title, string author, decimal price)
-{
-    public Guid Id { get; } = Guard.Against.Default(id);
-    public string Title { get; } = Guard.Against.NullOrEmpty(title);
-    public string Author { get; } = Guard.Against.NullOrEmpty(author);
-    public decimal Price { get; private set; } = Guard.Against.Negative(price);
-
-    internal decimal UpdatePrice(decimal newPrice)
-    {
-        Price = Guard.Against.Negative(newPrice);
-        return newPrice;
-    }
-}
