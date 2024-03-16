@@ -1,6 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Security;
 using RiverBooks.Books;
+using RiverBooks.OrderProcessing;
 using RiverBooks.Users;
 using Serilog;
 
@@ -21,6 +22,7 @@ builder.Services.AddFastEndpoints();
 
 builder.Services.AddBooksModule(builder.Configuration, Log.Logger);
 builder.Services.AddUsersModule(builder.Configuration, Log.Logger);
+builder.Services.AddOrderProcessingModule(builder.Configuration, Log.Logger);
 
 var app = builder.Build();
 

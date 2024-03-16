@@ -15,7 +15,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\RiverBooks.Books\RiverBooks.Books.csproj"/>
+        <ProjectReference Include="..\RiverBooks.OrderProcessing\RiverBooks.OrderProcessing.csproj" />
         <ProjectReference Include="..\RiverBooks.Users\RiverBooks.Users.csproj"/>
+        <ProjectReference Include="..\RiverBooks.Users\RiverBooks.OrderProcessing.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
