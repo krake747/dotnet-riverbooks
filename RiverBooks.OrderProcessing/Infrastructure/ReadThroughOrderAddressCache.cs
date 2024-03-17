@@ -22,7 +22,9 @@ internal sealed class ReadThroughOrderAddressCache(ILogger logger, ISender media
             return Result.NotFound();
         }
 
-        logger.Information("Address {Id} not found; fetching from source", addressId);
+        logger.ForContext<ReadThroughOrderAddressCache>()
+            .Information("Address {Id} not found; fetching from source", addressId);
+
         var query = new UserAddressDetailsByIdQuery(addressId);
 
         var queryResult = await mediator.Send(query);

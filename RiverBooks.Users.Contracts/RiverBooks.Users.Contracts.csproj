@@ -12,6 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Riverbooks.SharedKernel\Riverbooks.SharedKernel.csproj" />
+        <ProjectReference Include="..\Riverbooks.SharedKernel\Riverbooks.SharedKernel.csproj"/>
     </ItemGroup>
 </Project>

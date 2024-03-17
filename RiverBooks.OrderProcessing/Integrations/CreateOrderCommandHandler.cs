@@ -28,7 +28,7 @@ internal sealed class CreateOrderCommandHandler(
         await orderRepository.AddAsync(newOrder, token);
         await orderRepository.SaveChangesAsync(token);
 
-        logger.Information("New Order Created! {OrderId}", newOrder.Id);
+        logger.ForContext<CreateOrderCommandHandler>().Information("New Order Created! {OrderId}", newOrder.Id);
 
         return new OrderDetailsResponse(newOrder.Id);
     }

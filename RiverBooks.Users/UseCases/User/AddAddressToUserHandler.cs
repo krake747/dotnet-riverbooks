@@ -29,10 +29,11 @@ internal class AddAddressToUserHandler(IApplicationUserRepository userRepository
 
         await userRepository.SaveChangesAsync(token);
 
-        logger.Information("[UseCase] Added address {Address} to user {Email} (Total: {Total})",
-            userAddress.StreetAddress,
-            request.EmailAddress,
-            user.Addresses.Count);
+        logger.ForContext<AddAddressToUserHandler>()
+            .Information("[UseCase] Added address {Address} to user {Email} (Total: {Total})",
+                userAddress.StreetAddress,
+                request.EmailAddress,
+                user.Addresses.Count);
 
         return Result.Success();
     }

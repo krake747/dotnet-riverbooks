@@ -1,13 +1,13 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using RiverBooks.Books.Contracts;
-using RiverBooks.Users.CartEndpoints;
 using RiverBooks.Users.Domain;
 using RiverBooks.Users.Interfaces;
+using Serilog;
 
 namespace RiverBooks.Users.UseCases.Cart.AddItem;
 
-internal sealed class AddItemToCartHandler(IApplicationUserRepository userRepository, ISender mediator)
+internal sealed class AddItemToCartHandler(ILogger logger, ISender mediator, IApplicationUserRepository userRepository)
     : IRequestHandler<AddItemToCartCommand, Result>
 {
     public async Task<Result> Handle(AddItemToCartCommand request, CancellationToken token = default)
@@ -34,6 +34,9 @@ internal sealed class AddItemToCartHandler(IApplicationUserRepository userReposi
         user.AddItemToCart(newCartItem);
 
         await userRepository.SaveChangesAsync(token);
+
+        logger.ForContext<AddItemToCartHandler>()
+            .Information("Added an item to the cart {Description}", newCartItem.Description);
         return Result.Success();
     }
 }

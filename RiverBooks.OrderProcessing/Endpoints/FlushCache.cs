@@ -17,7 +17,7 @@ internal sealed class FlushCache : EndpointWithoutRequest
         // TODO: use DI
         var redis = ConnectionMultiplexer.Connect("localhost"); // TODO: Get server from config
         _db = redis.GetDatabase();
-        _logger = logger;
+        _logger = logger.ForContext<FlushCache>();
     }
 
     public override void Configure()

@@ -6,10 +6,7 @@ using RiverBooks.Users.UseCases.Cart.ListItems;
 
 namespace RiverBooks.Users.CartEndpoints;
 
-public sealed class CartResponse
-{
-    public IEnumerable<CartItemDto> CartItems { get; set; } = [];
-}
+public sealed record CartResponse(IEnumerable<CartItemDto> CartItems);
 
 internal sealed class ListCartItems(ISender mediator) : EndpointWithoutRequest<CartResponse>
 {
@@ -33,10 +30,7 @@ internal sealed class ListCartItems(ISender mediator) : EndpointWithoutRequest<C
         }
         else
         {
-            await SendOkAsync(new CartResponse
-            {
-                CartItems = result.Value
-            }, token);
+            await SendOkAsync(new CartResponse(result.Value), token);
         }
     }
 }

@@ -21,13 +21,14 @@ builder.Services.AddAuthenticationJwtBearer(s => s.SigningKey = builder.Configur
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
 
-builder.Services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
-
+builder.Services.AddSharedKernel();
 builder.Services.AddBooksModule(builder.Configuration, Log.Logger);
 builder.Services.AddUsersModule(builder.Configuration, Log.Logger);
 builder.Services.AddOrderProcessingModule(builder.Configuration, Log.Logger);
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 app.UseAuthentication();
 app.UseAuthorization();

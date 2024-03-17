@@ -14,7 +14,7 @@ internal sealed class RedisOrderAddressCache : IOrderAddressCache
     {
         var redis = ConnectionMultiplexer.Connect("localhost"); // TODO: Get server from config
         _db = redis.GetDatabase();
-        _logger = logger;
+        _logger = logger.ForContext<RedisOrderAddressCache>();
     }
 
     public async Task<Result<OrderAddress>> GetByIdAsync(Guid id)

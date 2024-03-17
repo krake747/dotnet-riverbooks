@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Riverbooks.SharedKernel;
 using RiverBooks.Users.Data;
 using RiverBooks.Users.Domain;
 using RiverBooks.Users.Interfaces;
@@ -24,6 +25,8 @@ public static class UsersModuleExtensions
 
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
 
+        services.AddFluentValidationValidators<IUsersModuleMarker>();
+        
         logger.Information("{Module} module services registered", "Users");
 
         return services;

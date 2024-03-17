@@ -24,8 +24,9 @@ internal sealed class UserAddressIntegrationEventDispatcherHandler(ILogger logge
 
         await mediator.Publish(new NewUserAddressAddedIntegrationEvent(addressDetails), token);
 
-        logger.Information("[DE Handler]New address integration event sent for {User}: {Address}",
-            notification.NewAddress.UserId,
-            newStreetAddress);
+        logger.ForContext<UserAddressIntegrationEventDispatcherHandler>()
+            .Information("[DE Handler]New address integration event sent for {User}: {Address}",
+                notification.NewAddress.UserId,
+                newStreetAddress);
     }
 }

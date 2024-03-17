@@ -5,7 +5,7 @@ using RiverBooks.Users.Interfaces;
 
 namespace RiverBooks.Users.UseCases.Cart.ListItems;
 
-internal sealed class ListCartItemsHandler(IApplicationUserRepository userRepository)
+internal sealed class ListCartItemsQueryHandler(IApplicationUserRepository userRepository)
     : IRequestHandler<ListCartItemsQuery, Result<IEnumerable<CartItemDto>>>
 {
     public async Task<Result<IEnumerable<CartItemDto>>> Handle(ListCartItemsQuery request,

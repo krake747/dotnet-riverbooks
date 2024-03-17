@@ -22,6 +22,7 @@ internal sealed class AddressCacheUpdatingNewUserAddressHandler(ILogger logger, 
 
         await addressCache.StoreAsync(orderAddress);
 
-        logger.Information("Cache updated with new address {Address}", orderAddress);
+        logger.ForContext<AddressCacheUpdatingNewUserAddressHandler>()
+            .Information("Cache updated with new address {Address}", orderAddress);
     }
 }

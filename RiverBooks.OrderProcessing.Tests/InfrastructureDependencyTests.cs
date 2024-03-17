@@ -18,20 +18,20 @@ public sealed class InfrastructureDependencyTests(ITestOutputHelper outputHelper
     {
         // Arrange
         var domainTypes = Types().That()
-            .ResideInNamespace("RiverBooks.OrderProcessing.Domain.*", useRegularExpressions: true)
+            .ResideInNamespace("RiverBooks.OrderProcessing.Domain.*", true)
             .As("OrderProcessing Domain Types");
-        
-        var infrastructureTypes = Types().That()           
-            .ResideInNamespace("RiverBooks.OrderProcessing.Infrastructure.*", useRegularExpressions: true)
+
+        var infrastructureTypes = Types().That()
+            .ResideInNamespace("RiverBooks.OrderProcessing.Infrastructure.*", true)
             .As("OrderProcessing Infrastructure Types");
-        
+
         // Act
         PrintTypes(domainTypes, infrastructureTypes);
-        
+
         // Assert
         domainTypes.Should().NotDependOnAny(infrastructureTypes).Check(Architecture);
     }
-    
+
     /// <summary>
     ///     Used for debugging purposes
     /// </summary>

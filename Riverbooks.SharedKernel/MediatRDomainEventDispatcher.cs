@@ -2,7 +2,7 @@
 
 namespace Riverbooks.SharedKernel;
 
-public sealed class MediatorDomainEventDispatcher(IPublisher mediator) : IDomainEventDispatcher
+public sealed class MediatRDomainEventDispatcher(IPublisher mediator) : IDomainEventDispatcher
 {
     public async Task DispatchAndClearEvents(IEnumerable<IHaveDomainEvents> entitiesWithEvents)
     {
