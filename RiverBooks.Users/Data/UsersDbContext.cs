@@ -7,6 +7,7 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options, IDo
     : IdentityDbContext(options)
 {
     public DbSet<ApplicationUser> ApplicationUsers { get; init; } = null!;
+    public DbSet<UserStreetAddress> UserStreetAddresses { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

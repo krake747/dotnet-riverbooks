@@ -18,6 +18,7 @@ public static class UsersModuleExtensions
             .AddEntityFrameworkStores<UsersDbContext>();
 
         services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+        services.AddScoped<IReadOnlyUserStreetAddressRepository, EfUserStreetAddressRepository>();
 
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
 

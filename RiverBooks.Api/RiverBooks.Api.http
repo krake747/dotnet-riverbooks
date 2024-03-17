@@ -78,7 +78,7 @@ Content-Type: application/json
 
 ### Add Item to cart
 
-@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDY3NzExNCwiZXhwIjoxNzEwNjgwNzE0LCJuYmYiOjE3MTA2NzcxMTR9.8fTioa3Z4llSyXxvw27V0PcZwNS-qfnpWIBTYWwMuZk
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJra0B0ZXN0LmNvbSIsImlhdCI6MTcxMDY4MjM0OSwiZXhwIjoxNzEwNjg1OTQ5LCJuYmYiOjE3MTA2ODIzNDl9.Vg4F-1dpuObcU7jrJf1LCkzSTnPR9tl2pPjEMeCOlJY
 
 POST {{RiverBooks.Api_HostAdress}}/cart
 Accept: text/plain
@@ -135,5 +135,15 @@ Content-Type: application/json
 GET {{RiverBooks.Api_HostAdress}}/users/addresses
 Accept: application/json
 Authorization: Bearer {{token}}
+
+### Flush Redis cache (Testing only)
+
+POST {{RiverBooks.Api_HostAdress}}/flushcache
+Accept: application/json
+Content-Type: application/json
+
+{
+    
+}
 
 ###
