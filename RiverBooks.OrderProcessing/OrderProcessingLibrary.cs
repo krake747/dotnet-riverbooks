@@ -80,6 +80,7 @@ public interface IOrderRepository
 internal interface IOrderAddressCache
 {
     Task<Result<OrderAddress>> GetByIdAsync(Guid addressId);
+    Task<Result> StoreAsync(OrderAddress orderAddress);
 }
 
 internal sealed class RedisOrderAddressCache: IOrderAddressCache

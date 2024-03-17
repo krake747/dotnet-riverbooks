@@ -1,5 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Ardalis.GuardClauses;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 
 namespace RiverBooks.Users;
 
@@ -29,15 +32,67 @@ public sealed class UserStreetAddress
     public Address StreetAddress { get; } = default!;
 }
 
-public sealed class ApplicationUser : IdentityUser
+public interface IHaveDomainEvents
+{
+    IEnumerable<DomainEventBase> DomainEvents { get; }
+    void ClearDomainEvents();
+}
+
+public abstract class DomainEventBase : INotification
+{
+    public DateTime DateOccured { get; protected set; } = DateTime.UtcNow;
+}
+
+internal sealed class AddressAddedEvent(UserStreetAddress newAddress) : DomainEventBase
+{
+    public UserStreetAddress NewAddress { get; } = newAddress;
+}
+
+internal sealed class LogNewAddressHandler(ILogger logger) : INotificationHandler<AddressAddedEvent>
+{
+    public Task Handle(AddressAddedEvent notification, CancellationToken token = default)
+    {
+        logger.Information("[DE Handler]New address added to user {User}: {Address}",
+            notification.NewAddress.UserId,
+            notification.NewAddress.StreetAddress);
+
+        return Task.CompletedTask;
+    }
+}
+
+public interface IDomainEventDispatcher
+{
+    Task DispatchAndClearEvents(IEnumerable<IHaveDomainEvents> entitiesWithEvents);
+}
+
+public sealed class MediatorDomainEventDispatcher(IPublisher mediator) : IDomainEventDispatcher
+{
+    public async Task DispatchAndClearEvents(IEnumerable<IHaveDomainEvents> entitiesWithEvents)
+    {
+        foreach (var entity in entitiesWithEvents)
+        {
+            var events = entity.DomainEvents.ToArray();
+            entity.ClearDomainEvents();
+            foreach (var domainEvent in events)
+            {
+                await mediator.Publish(domainEvent).ConfigureAwait(false);
+            }
+        }
+    }
+}
+
+public sealed class ApplicationUser : IdentityUser, IHaveDomainEvents
 {
     private readonly List<UserStreetAddress> _addresses = [];
     private readonly List<CartItem> _cartItems = [];
+    private readonly List<DomainEventBase> _domainEvents = [];
 
     public string FullName { get; set; } = string.Empty;
     public IReadOnlyCollection<CartItem> CartItems => _cartItems.AsReadOnly();
     public IReadOnlyCollection<UserStreetAddress> Addresses => _addresses.AsReadOnly();
-
+    
+    [NotMapped] public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
+    
     internal UserStreetAddress AddAddress(Address address)
     {
         Guard.Against.Null(address);
@@ -51,6 +106,9 @@ public sealed class ApplicationUser : IdentityUser
         var newAddress = new UserStreetAddress(Id, address);
         _addresses.Add(newAddress);
 
+        var domainEvent = new AddressAddedEvent(newAddress);
+        RegisterDomainEvent(domainEvent);
+        
         return newAddress;
     }
 
@@ -71,6 +129,9 @@ public sealed class ApplicationUser : IdentityUser
     }
 
     internal void ClearCart() => _cartItems.Clear();
+
+    private void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
+    void IHaveDomainEvents.ClearDomainEvents() => _domainEvents.Clear();
 }
 
 public sealed class CartItem

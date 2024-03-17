@@ -11,7 +11,6 @@ internal class ListAddressesQueryHandler(IApplicationUserRepository userReposito
         CancellationToken token = default)
     {
         var user = await userRepository.GetUserWithAddressesByEmailAsync(request.EmailAddress, token);
-
         if (user is null)
         {
             return Result.Unauthorized();

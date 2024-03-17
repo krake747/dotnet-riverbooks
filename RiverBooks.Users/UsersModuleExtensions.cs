@@ -17,9 +17,11 @@ public static class UsersModuleExtensions
         services.AddIdentityCore<ApplicationUser>()
             .AddEntityFrameworkStores<UsersDbContext>();
 
+        services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
 
-        services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+        services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 
         logger.Information("{Module} module services registered", "Users");
 
