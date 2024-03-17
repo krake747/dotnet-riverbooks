@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RiverBooks.Users.Data;
+using RiverBooks.Users.Domain;
+using RiverBooks.Users.Interfaces;
 using Serilog;
 
 namespace RiverBooks.Users;

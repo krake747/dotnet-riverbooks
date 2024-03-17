@@ -1,5 +1,7 @@
 ﻿using Ardalis.Result;
 using MediatR;
+using RiverBooks.Users.Domain;
+using RiverBooks.Users.Interfaces;
 using Serilog;
 
 namespace RiverBooks.Users.UseCases.User;

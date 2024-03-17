@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using RiverBooks.Users.Contracts;
+using RiverBooks.Users.Domain;
 using Serilog;
 
 namespace RiverBooks.Users.Integrations;

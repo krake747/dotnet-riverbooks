@@ -2,6 +2,8 @@
 using MediatR;
 using RiverBooks.Books.Contracts;
 using RiverBooks.Users.CartEndpoints;
+using RiverBooks.Users.Domain;
+using RiverBooks.Users.Interfaces;
 
 namespace RiverBooks.Users.UseCases.Cart.AddItem;
 
