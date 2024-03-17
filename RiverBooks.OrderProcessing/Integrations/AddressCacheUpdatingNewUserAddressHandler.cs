@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using RiverBooks.OrderProcessing.Domain;
+using RiverBooks.OrderProcessing.Infrastructure;
 using RiverBooks.Users.Contracts;
 using Serilog;
 

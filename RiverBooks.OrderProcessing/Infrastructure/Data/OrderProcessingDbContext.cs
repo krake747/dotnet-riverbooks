@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RiverBooks.OrderProcessing.Domain;
 
-namespace RiverBooks.OrderProcessing.Data;
+namespace RiverBooks.OrderProcessing.Infrastructure.Data;
 
 public sealed class OrderProcessingDbContext(DbContextOptions<OrderProcessingDbContext> options)
     : IdentityDbContext(options)
