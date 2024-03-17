@@ -2,6 +2,7 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using RiverBooks.Books;
 using RiverBooks.OrderProcessing;
+using Riverbooks.SharedKernel;
 using RiverBooks.Users;
 using Serilog;
 
@@ -19,6 +20,8 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 builder.Services.AddAuthenticationJwtBearer(s => s.SigningKey = builder.Configuration["Auth:JwtSecret"]);
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints();
+
+builder.Services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 
 builder.Services.AddBooksModule(builder.Configuration, Log.Logger);
 builder.Services.AddUsersModule(builder.Configuration, Log.Logger);

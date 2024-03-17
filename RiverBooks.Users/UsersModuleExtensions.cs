@@ -24,8 +24,6 @@ public static class UsersModuleExtensions
 
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IUsersModuleMarker)));
 
-        services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
-
         logger.Information("{Module} module services registered", "Users");
 
         return services;

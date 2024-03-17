@@ -1,4 +1,6 @@
-﻿namespace RiverBooks.Users.Domain;
+﻿using Riverbooks.SharedKernel;
+
+namespace RiverBooks.Users.Domain;
 
 internal sealed class AddressAddedEvent(UserStreetAddress newAddress) : DomainEventBase
 {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RiverBooks.Users.Contracts;
+namespace Riverbooks.SharedKernel;
 
 public abstract record IntegrationEventBase : INotification
 {

@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using RiverBooks.Users.Interfaces;
 
-namespace RiverBooks.Users;
+namespace Riverbooks.SharedKernel;
 
 public sealed class MediatorDomainEventDispatcher(IPublisher mediator) : IDomainEventDispatcher
 {

@@ -1,4 +1,4 @@
-﻿namespace RiverBooks.Users.Interfaces;
+﻿namespace Riverbooks.SharedKernel;
 
 public interface IDomainEventDispatcher
 {

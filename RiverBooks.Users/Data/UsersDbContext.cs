@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Riverbooks.SharedKernel;
 using RiverBooks.Users.Domain;
-using RiverBooks.Users.Interfaces;
 
 namespace RiverBooks.Users.Data;
 
