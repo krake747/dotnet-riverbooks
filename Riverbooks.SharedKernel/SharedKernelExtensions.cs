@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Riverbooks.SharedKernel.Behaviours;
 
@@ -26,7 +25,7 @@ public static class SharedKernelExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection AddFluentValidationValidators<TMarker>(this IServiceCollection services)
     {
         // // Get the assembly containing the specified type
@@ -50,7 +49,7 @@ public static class SharedKernelExtensions
         //         services.AddTransient(implementedInterface, validatorType);
         //     }
         // }
-        
+
         services.AddValidatorsFromAssemblyContaining(typeof(TMarker));
         return services;
     }

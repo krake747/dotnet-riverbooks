@@ -9,7 +9,7 @@ public sealed class FluentValidationBehaviour<TRequest, TResponse>(IEnumerable<I
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, 
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken token = default)
     {
         if (validators.Any() is false)
@@ -24,7 +24,7 @@ public sealed class FluentValidationBehaviour<TRequest, TResponse>(IEnumerable<I
         var failures = validationResults.SelectMany(r => r.Errors)
             .Where(f => f is not null)
             .ToList();
-        
+
         if (failures.Count is 0)
         {
             return await next();
@@ -56,6 +56,7 @@ public sealed class FluentValidationBehaviour<TRequest, TResponse>(IEnumerable<I
                 return (TResponse)(object)Result.Invalid(resultErrors);
             }
         }
+
         return await next();
     }
 }
