@@ -23,9 +23,9 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options, IDo
         configurationBuilder.Properties<decimal>()
             .HavePrecision(18, 6);
     }
-    
+
     /// <summary>
-    /// This is needed for domain events to work
+    ///     This is needed for domain events to work
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>

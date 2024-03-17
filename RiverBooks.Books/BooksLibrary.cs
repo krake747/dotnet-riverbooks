@@ -16,10 +16,10 @@ internal sealed class Book
         Author = Guard.Against.NullOrEmpty(author);
         Price = Guard.Against.Negative(price);
     }
-    
-    public Guid Id { get; private set; } 
-    public string Title { get; private set; } = string.Empty;
-    public string Author { get; private set; } = string.Empty;
+
+    public Guid Id { get; }
+    public string Title { get; } = string.Empty;
+    public string Author { get; } = string.Empty;
     public decimal Price { get; private set; }
 
     internal decimal UpdatePrice(decimal newPrice)
@@ -103,4 +103,3 @@ internal sealed class BookService(IBookRepository bookRepository) : IBookService
         }
     }
 }
-

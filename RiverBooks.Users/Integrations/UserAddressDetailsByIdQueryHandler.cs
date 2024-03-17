@@ -4,10 +4,10 @@ using RiverBooks.Users.Contracts;
 
 namespace RiverBooks.Users.Integrations;
 
-internal sealed class UserAddressDetailsByIdQueryHandler(IReadOnlyUserStreetAddressRepository addressRepository) 
+internal sealed class UserAddressDetailsByIdQueryHandler(IReadOnlyUserStreetAddressRepository addressRepository)
     : IRequestHandler<UserAddressDetailsByIdQuery, Result<UserAddressDetails>>
 {
-    public async Task<Result<UserAddressDetails>> Handle(UserAddressDetailsByIdQuery request, 
+    public async Task<Result<UserAddressDetails>> Handle(UserAddressDetailsByIdQuery request,
         CancellationToken token = default)
     {
         var address = await addressRepository.GetById(request.AddressId, token);
@@ -30,5 +30,4 @@ internal sealed class UserAddressDetailsByIdQueryHandler(IReadOnlyUserStreetAddr
 
         return details;
     }
-
 }

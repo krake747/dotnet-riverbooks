@@ -4,7 +4,7 @@ using Serilog;
 
 namespace RiverBooks.Users.Integrations;
 
-internal sealed class UserAddressIntegrationEventDispatcherHandler(ILogger logger, IPublisher mediator) 
+internal sealed class UserAddressIntegrationEventDispatcherHandler(ILogger logger, IPublisher mediator)
     : INotificationHandler<AddressAddedEvent>
 {
     public async Task Handle(AddressAddedEvent notification, CancellationToken token = default)
@@ -22,7 +22,7 @@ internal sealed class UserAddressIntegrationEventDispatcherHandler(ILogger logge
             newStreetAddress.Country);
 
         await mediator.Publish(new NewUserAddressAddedIntegrationEvent(addressDetails), token);
-        
+
         logger.Information("[DE Handler]New address integration event sent for {User}: {Address}",
             notification.NewAddress.UserId,
             newStreetAddress);

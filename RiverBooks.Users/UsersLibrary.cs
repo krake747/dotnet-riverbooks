@@ -28,7 +28,7 @@ public sealed class UserStreetAddress
     }
 
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public string UserId { get; private set; } = string.Empty;
+    public string UserId { get; } = string.Empty;
     public Address StreetAddress { get; } = default!;
 }
 
@@ -90,9 +90,10 @@ public sealed class ApplicationUser : IdentityUser, IHaveDomainEvents
     public string FullName { get; set; } = string.Empty;
     public IReadOnlyCollection<CartItem> CartItems => _cartItems.AsReadOnly();
     public IReadOnlyCollection<UserStreetAddress> Addresses => _addresses.AsReadOnly();
-    
+
     [NotMapped] public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
-    
+    void IHaveDomainEvents.ClearDomainEvents() => _domainEvents.Clear();
+
     internal UserStreetAddress AddAddress(Address address)
     {
         Guard.Against.Null(address);
@@ -108,7 +109,7 @@ public sealed class ApplicationUser : IdentityUser, IHaveDomainEvents
 
         var domainEvent = new AddressAddedEvent(newAddress);
         RegisterDomainEvent(domainEvent);
-        
+
         return newAddress;
     }
 
@@ -131,7 +132,6 @@ public sealed class ApplicationUser : IdentityUser, IHaveDomainEvents
     internal void ClearCart() => _cartItems.Clear();
 
     private void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
-    void IHaveDomainEvents.ClearDomainEvents() => _domainEvents.Clear();
 }
 
 public sealed class CartItem
@@ -150,7 +150,7 @@ public sealed class CartItem
     }
 
     public Guid Id { get; private set; } = Guid.NewGuid();
-    public Guid BookId { get; private set; }
+    public Guid BookId { get; }
     public string Description { get; private set; } = string.Empty;
     public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; }

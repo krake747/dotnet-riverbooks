@@ -2,7 +2,7 @@
 
 namespace RiverBooks.Users.Data;
 
-internal sealed class EfUserStreetAddressRepository(UsersDbContext dbContext) 
+internal sealed class EfUserStreetAddressRepository(UsersDbContext dbContext)
     : IReadOnlyUserStreetAddressRepository
 {
     public Task<UserStreetAddress?> GetById(Guid userStreetAddressId, CancellationToken token = default) =>

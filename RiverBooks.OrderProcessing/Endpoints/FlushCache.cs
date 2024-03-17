@@ -11,7 +11,7 @@ internal sealed class FlushCache : EndpointWithoutRequest
 {
     private readonly IDatabase _db;
     private readonly ILogger _logger;
-    
+
     public FlushCache(ILogger logger)
     {
         // TODO: use DI

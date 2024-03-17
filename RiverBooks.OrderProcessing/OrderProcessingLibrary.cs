@@ -69,7 +69,6 @@ public sealed class Order
         order.AddOrderItems(orderItems);
         return order;
     }
-    
 }
 
 public interface IOrderRepository
@@ -85,7 +84,7 @@ internal interface IOrderAddressCache
     Task<Result> StoreAsync(OrderAddress orderAddress);
 }
 
-internal sealed class RedisOrderAddressCache: IOrderAddressCache
+internal sealed class RedisOrderAddressCache : IOrderAddressCache
 {
     private readonly IDatabase _db;
     private readonly ILogger _logger;
@@ -105,7 +104,7 @@ internal sealed class RedisOrderAddressCache: IOrderAddressCache
             _logger.Warning("Address {Id} not found in {Db}", id, "REDIS");
             return Result.NotFound();
         }
-        
+
         var address = JsonSerializer.Deserialize<OrderAddress>(fetchedJson);
         if (address is null)
         {
@@ -128,7 +127,8 @@ internal sealed class RedisOrderAddressCache: IOrderAddressCache
     }
 }
 
-internal sealed class ReadThroughOrderAddressCache(ILogger logger, ISender mediator, RedisOrderAddressCache redisCache) : IOrderAddressCache
+internal sealed class ReadThroughOrderAddressCache(ILogger logger, ISender mediator, RedisOrderAddressCache redisCache)
+    : IOrderAddressCache
 {
     public async Task<Result<OrderAddress>> GetByIdAsync(Guid addressId)
     {
@@ -159,7 +159,7 @@ internal sealed class ReadThroughOrderAddressCache(ILogger logger, ISender media
             dto.State,
             dto.PostalCode,
             dto.Country);
-        
+
         var orderAddress = new OrderAddress(dto.AddressId, address);
         await StoreAsync(orderAddress);
         return orderAddress;

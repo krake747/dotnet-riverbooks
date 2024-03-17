@@ -4,10 +4,10 @@ using Serilog;
 
 namespace RiverBooks.OrderProcessing.Integrations;
 
-internal sealed class AddressCacheUpdatingNewUserAddressHandler(ILogger logger, IOrderAddressCache addressCache) 
+internal sealed class AddressCacheUpdatingNewUserAddressHandler(ILogger logger, IOrderAddressCache addressCache)
     : INotificationHandler<NewUserAddressAddedIntegrationEvent>
 {
-    public async Task Handle(NewUserAddressAddedIntegrationEvent notification, 
+    public async Task Handle(NewUserAddressAddedIntegrationEvent notification,
         CancellationToken ct)
     {
         var orderAddress = new OrderAddress(notification.Details.AddressId,
