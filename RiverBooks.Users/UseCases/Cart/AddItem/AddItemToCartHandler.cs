@@ -1,8 +1,9 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using RiverBooks.Books.Contracts;
+using RiverBooks.Users.CartEndpoints;
 
-namespace RiverBooks.Users.CartEndpoints;
+namespace RiverBooks.Users.UseCases.Cart.AddItem;
 
 internal sealed class AddItemToCartHandler(IApplicationUserRepository userRepository, ISender mediator)
     : IRequestHandler<AddItemToCartCommand, Result>

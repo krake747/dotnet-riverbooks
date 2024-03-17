@@ -2,12 +2,25 @@
 
 namespace RiverBooks.Books;
 
-internal sealed class Book(Guid id, string title, string author, decimal price)
+internal sealed class Book
 {
-    public Guid Id { get; } = Guard.Against.Default(id);
-    public string Title { get; } = Guard.Against.NullOrEmpty(title);
-    public string Author { get; } = Guard.Against.NullOrEmpty(author);
-    public decimal Price { get; private set; } = Guard.Against.Negative(price);
+    private Book()
+    {
+        // EF
+    }
+
+    internal Book(Guid id, string title, string author, decimal price)
+    {
+        Id = Guard.Against.Default(id);
+        Title = Guard.Against.NullOrEmpty(title);
+        Author = Guard.Against.NullOrEmpty(author);
+        Price = Guard.Against.Negative(price);
+    }
+    
+    public Guid Id { get; private set; } 
+    public string Title { get; private set; } = string.Empty;
+    public string Author { get; private set; } = string.Empty;
+    public decimal Price { get; private set; }
 
     internal decimal UpdatePrice(decimal newPrice)
     {

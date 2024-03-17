@@ -5,7 +5,7 @@ using Serilog;
 
 namespace RiverBooks.OrderProcessing.Integrations;
 
-internal sealed class CreateOrderCommandHandler(ILogger logger, IOrderRepository orderRepository)
+internal sealed class CreateOrderCommandHandler(ILogger logger, IOrderRepository orderRepository, IOrderAddressCache addressCache)
     : IRequestHandler<CreateOrderCommand, Result<OrderDetailsResponse>>
 {
     public async Task<Result<OrderDetailsResponse>> Handle(CreateOrderCommand request,
@@ -13,10 +13,13 @@ internal sealed class CreateOrderCommandHandler(ILogger logger, IOrderRepository
     {
         var items = request.OrderItems.Select(x => new OrderItem(x.BookId, x.Description, x.Quantity, x.UnitPrice));
 
-        var shippingAddress = new Address("123 Main", "", "Kent", "OH", "44444", "USA");
-        var billingAddress = shippingAddress;
+        var shippingAddress = await addressCache.GetByIdAsync(request.ShippingAddressId);
+        var billingAddress = await addressCache.GetByIdAsync(request.BillingAddressId);
 
-        var newOrder = Order.Factory.Create(request.UserId, shippingAddress, billingAddress, items);
+        var newOrder = Order.Create(request.UserId, 
+            shippingAddress.Value.Address, 
+            billingAddress.Value.Address, 
+            items);
 
         await orderRepository.AddAsync(newOrder, token);
         await orderRepository.SaveChangesAsync(token);

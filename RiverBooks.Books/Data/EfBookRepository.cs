@@ -5,7 +5,7 @@ namespace RiverBooks.Books.Data;
 internal sealed class EfBookRepository(BooksDbContext dbContext) : IBookRepository
 {
     public async Task<Book?> GetByIdAsync(Guid id, CancellationToken token = default) =>
-        await dbContext.Books.FindAsync([id], token);
+        await dbContext.Books.FindAsync([id], cancellationToken: token);
 
     public async Task<IEnumerable<Book>> ListAsync() =>
         await dbContext.Books.ToListAsync();

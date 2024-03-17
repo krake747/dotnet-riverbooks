@@ -16,6 +16,7 @@ public static class OrderProcessingModuleExtensions
         services.AddDbContext<OrderProcessingDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<IOrderRepository, EfOrderRepository>();
+        services.AddScoped<IOrderAddressCache, RedisOrderAddressCache>();
 
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(IOrderProcessingModuleMarker)));
 

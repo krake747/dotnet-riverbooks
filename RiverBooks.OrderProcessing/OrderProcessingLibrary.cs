@@ -1,4 +1,8 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.Text.Json;
+using Ardalis.GuardClauses;
+using Ardalis.Result;
+using Serilog;
+using StackExchange.Redis;
 
 namespace RiverBooks.OrderProcessing;
 
@@ -9,6 +13,8 @@ public sealed record Address(
     string State,
     string PostalCode,
     string Country);
+
+internal sealed record OrderAddress(Guid Id, Address Address);
 
 public sealed class OrderItem
 {
@@ -47,22 +53,21 @@ public sealed class Order
     private void AddOrderItem(OrderItem item) => _orderItems.Add(item);
     private void AddOrderItems(IEnumerable<OrderItem> items) => _orderItems.AddRange(items);
 
-    internal static class Factory
-    {
-        public static Order Create(Guid userId, Address shippingAddress, Address billingAddress,
-            IEnumerable<OrderItem> orderItems)
-        {
-            var order = new Order
-            {
-                UserId = userId,
-                ShippingAddress = shippingAddress,
-                BillingAddress = billingAddress
-            };
 
-            order.AddOrderItems(orderItems);
-            return order;
-        }
+    public static Order Create(Guid userId, Address shippingAddress, Address billingAddress,
+        IEnumerable<OrderItem> orderItems)
+    {
+        var order = new Order
+        {
+            UserId = userId,
+            ShippingAddress = shippingAddress,
+            BillingAddress = billingAddress
+        };
+
+        order.AddOrderItems(orderItems);
+        return order;
     }
+    
 }
 
 public interface IOrderRepository
@@ -70,4 +75,52 @@ public interface IOrderRepository
     Task<List<Order>> ListAsync(CancellationToken token = default);
     Task AddAsync(Order order, CancellationToken token = default);
     Task SaveChangesAsync(CancellationToken token = default);
+}
+
+internal interface IOrderAddressCache
+{
+    Task<Result<OrderAddress>> GetByIdAsync(Guid addressId);
+}
+
+internal sealed class RedisOrderAddressCache: IOrderAddressCache
+{
+    private readonly IDatabase _db;
+    private readonly ILogger _logger;
+
+    public RedisOrderAddressCache(ILogger logger)
+    {
+        var redis = ConnectionMultiplexer.Connect("localhost"); // TODO: Get server from config
+        _db = redis.GetDatabase();
+        _logger = logger;
+    }
+
+    public async Task<Result<OrderAddress>> GetByIdAsync(Guid id)
+    {
+        string? fetchedJson = await _db.StringGetAsync(id.ToString());
+        if (fetchedJson is null)
+        {
+            _logger.Warning("Address {Id} not found in {Db}", id, "REDIS");
+            return Result.NotFound();
+        }
+        
+        var address = JsonSerializer.Deserialize<OrderAddress>(fetchedJson);
+        if (address is null)
+        {
+            return Result.NotFound();
+        }
+
+        _logger.Information("Address {Id} returned from {Db}", id, "REDIS");
+        return Result.Success(address);
+    }
+
+    public async Task<Result> StoreAsync(OrderAddress orderAddress)
+    {
+        var key = orderAddress.Id.ToString();
+        var addressJson = JsonSerializer.Serialize(orderAddress);
+
+        await _db.StringSetAsync(key, addressJson);
+        _logger.Information("Address {Id} stored in {Db}", orderAddress.Id, "REDIS");
+
+        return Result.Success();
+    }
 }
