@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RiverBooks.Users.Domain;
 
-namespace RiverBooks.Users.Data;
+namespace RiverBooks.Users.Infrastructure.Data;
 
 public sealed class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
 {

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Riverbooks.SharedKernel;
 using RiverBooks.Users.Data;
 using RiverBooks.Users.Domain;
+using RiverBooks.Users.Infrastructure.Data;
 using RiverBooks.Users.Interfaces;
 using Serilog;
 

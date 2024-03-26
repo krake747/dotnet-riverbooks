@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Riverbooks.SharedKernel;
 using RiverBooks.Users.Domain;
 
-namespace RiverBooks.Users.Data;
+namespace RiverBooks.Users.Infrastructure.Data;
 
 public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options, IDomainEventDispatcher? dispatcher)
     : IdentityDbContext(options)

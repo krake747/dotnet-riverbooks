@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RiverBooks.Users.Domain;
 
-namespace RiverBooks.Users.Data;
+namespace RiverBooks.Users.Infrastructure.Data;
 
 internal sealed class UserStreetAddressConfiguration : IEntityTypeConfiguration<UserStreetAddress>
 {
