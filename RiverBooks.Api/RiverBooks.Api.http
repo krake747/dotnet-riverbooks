@@ -61,8 +61,19 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "kk@test.com",
+    "email": "kk3@test.com",
     "password": "Pass@word1"
+}
+
+### Create new invalid user
+
+POST {{RiverBooks.Api_HostAdress}}/users
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "kk2@test.com",
+    "password": ""
 }
 
 ### Login new user

@@ -4,7 +4,7 @@ using RiverBooks.Users.Domain;
 using RiverBooks.Users.Interfaces;
 using Serilog;
 
-namespace RiverBooks.Users.UseCases.User;
+namespace RiverBooks.Users.UseCases.User.AddAddresses;
 
 internal class AddAddressToUserHandler(IApplicationUserRepository userRepository, ILogger logger)
     : IRequestHandler<AddAddressToUserCommand, Result>

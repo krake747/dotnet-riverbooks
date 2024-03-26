@@ -29,5 +29,12 @@ services:
     ports:
       - "6379:6379"
         
+  riverbooks.papercut:
+    image: jijiechen/papercut:latest
+    container_name: RiverBooks.EmailServer
+    ports:
+      - "25:25"
+      - "37408:37408"
+        
 volumes: 
   riverbooksdb:

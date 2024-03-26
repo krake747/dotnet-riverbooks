@@ -3,6 +3,7 @@ using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
 using RiverBooks.Users.UseCases.User;
+using RiverBooks.Users.UseCases.User.AddAddresses;
 
 namespace RiverBooks.Users.UserEndpoints;
 

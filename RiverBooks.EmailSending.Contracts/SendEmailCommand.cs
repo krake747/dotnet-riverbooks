@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using MediatR;
 
-namespace RiverBooks.EmailSending;
+namespace RiverBooks.EmailSending.Contracts;
 
 public sealed class SendEmailCommand : IRequest<Result<Guid>>
 {
