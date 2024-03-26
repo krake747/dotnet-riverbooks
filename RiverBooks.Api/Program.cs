@@ -1,6 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Security;
 using RiverBooks.Books;
+using RiverBooks.EmailSending;
 using RiverBooks.OrderProcessing;
 using Riverbooks.SharedKernel;
 using RiverBooks.Users;
@@ -23,8 +24,9 @@ builder.Services.AddFastEndpoints();
 
 builder.Services.AddSharedKernel();
 builder.Services.AddBooksModule(builder.Configuration, Log.Logger);
-builder.Services.AddUsersModule(builder.Configuration, Log.Logger);
+builder.Services.AddEmailSendingModule(builder.Configuration, Log.Logger);
 builder.Services.AddOrderProcessingModule(builder.Configuration, Log.Logger);
+builder.Services.AddUsersModule(builder.Configuration, Log.Logger);
 
 var app = builder.Build();
 
