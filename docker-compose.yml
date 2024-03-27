@@ -35,6 +35,12 @@ services:
     ports:
       - "25:25"
       - "37408:37408"
-        
+  
+  riverbooks.mongodb:
+    image: mongo:latest
+    container_name: RiverBooks.MongoDB
+    ports:
+      - "27017:27017"
+  
 volumes: 
   riverbooksdb:

@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
-using MediatR;
 using RiverBooks.EmailSending.Contracts;
 
-namespace RiverBooks.EmailSending;
+namespace RiverBooks.EmailSending.Integrations;
 
-internal sealed class SendEmailCommandHandler(ISendEmail emailSender) : IRequestHandler<SendEmailCommand, Result<Guid>>
+// Disabled and use Outbox pattern command handler
+internal sealed class SendEmailCommandHandler(ISendEmail emailSender) //: IRequestHandler<SendEmailCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(SendEmailCommand request, CancellationToken token = default)
     {

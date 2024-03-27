@@ -17,9 +17,9 @@ internal sealed class Book
         Price = Guard.Against.Negative(price);
     }
 
-    public Guid Id { get; } = Guid.NewGuid();
-    public string Title { get; } = string.Empty;
-    public string Author { get; } = string.Empty;
+    public Guid Id { get; private set; } = Guid.NewGuid();
+    public string Title { get; private set;} = string.Empty;
+    public string Author { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
 
     internal decimal UpdatePrice(decimal newPrice)

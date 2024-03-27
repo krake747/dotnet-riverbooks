@@ -14,16 +14,13 @@
         <PackageReference Include="MediatR" Version="12.2.0"/>
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+        <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.1"/>
     </ItemGroup>
     
     <ItemGroup>
       <ProjectReference Include="..\RiverBooks.EmailSending.Contracts\RiverBooks.EmailSending.Contracts.csproj" />
       <ProjectReference Include="..\RiverBooks.Users.Contracts\RiverBooks.Users.Contracts.csproj" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Integrations\" />
     </ItemGroup>
 
 </Project>
