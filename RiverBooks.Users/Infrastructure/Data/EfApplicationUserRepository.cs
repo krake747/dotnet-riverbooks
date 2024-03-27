@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RiverBooks.Users.Data;
 using RiverBooks.Users.Domain;
 using RiverBooks.Users.Interfaces;
 
@@ -7,6 +6,11 @@ namespace RiverBooks.Users.Infrastructure.Data;
 
 internal sealed class EfApplicationUserRepository(UsersDbContext dbContext) : IApplicationUserRepository
 {
+    public async Task<ApplicationUser?> GetUserByIdAsync(Guid userId, CancellationToken token = default) =>
+        await dbContext.ApplicationUsers
+            .Include(user => user.CartItems)
+            .SingleAsync(user => user.Id == userId.ToString(), token);
+
     public async Task<ApplicationUser?> GetUserWithCartByEmailAsync(string email, CancellationToken token = default) =>
         await dbContext.ApplicationUsers
             .Include(user => user.CartItems)
