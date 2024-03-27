@@ -25,8 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Giraffe" Version="6.2.0"/>
+        <PackageReference Include="Giraffe" Version="6.3.0" />
         <PackageReference Include="Giraffe.ViewEngine" Version="1.4.0"/>
+        <PackageReference Update="FSharp.Core" Version="8.0.200" />
     </ItemGroup>
 
 </Project>
