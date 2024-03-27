@@ -3,6 +3,7 @@ using RiverBooks.EmailSending.Contracts;
 
 namespace RiverBooks.EmailSending.Integrations;
 
+
 // Disabled and use Outbox pattern command handler
 internal sealed class SendEmailCommandHandler(ISendEmail emailSender) //: IRequestHandler<SendEmailCommand, Result<Guid>>
 {

@@ -2,7 +2,7 @@
 using MimeKit;
 using Serilog;
 
-namespace RiverBooks.EmailSending;
+namespace RiverBooks.EmailSending.EmailBackgroundService;
 
 public sealed class MimeKitEmailSender(ILogger logger) : ISendEmail
 {
